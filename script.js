@@ -12,7 +12,8 @@ const resetBTN = document.createElement("button");
 resetBTN.textContent = "Reset";
 resetBTN.className = "resetBTN";
 
-let timer; // zmienna do czasu
+let timer; // zmienna do czasu stopera
+let timerRemoveResetBTN; // opóznienie uruchomienia funkcji removeResetBTN()
 
 // po kliknięciu na przycisk start podmieniamy przycisk "start" na przycisk "pauza"
 function startTimeDown() {
@@ -28,17 +29,34 @@ function startTimeDown() {
 
 function pauseTime() {
   console.log("klik pauseTime");
-  pauseTimeBTN.replaceWith(startTimeBTN);
-  startTimeBTN.addEventListener("click", startTimeDown);
+  pauseTimeBTN.textContent = "Wznów";
+  pauseTimeBTN.removeEventListener("click", pauseTime);
+  pauseTimeBTN.addEventListener("click", wznowTime);
+  // pauseTimeBTN.replaceWith(startTimeBTN);
+  // startTimeBTN.addEventListener("click", startTimeDown);
   clearInterval(timer);
+}
+
+function wznowTime() {
+  timer = setInterval(timeDown, 1000);
+  pauseTimeBTN.textContent = "Pauza";
+  pauseTimeBTN.removeEventListener("click", wznowTime);
+  pauseTimeBTN.addEventListener("click", pauseTime);
 }
 
 function resetTime() {
   clearInterval(timer);
   actualMin.textContent = "25";
   actualSek.textContent = "00";
-  resetBTN.remove();
+  resetBTN.classList.add("resetBTN0ff");
   pauseTimeBTN.replaceWith(startTimeBTN);
+  timerRemoveResetBTN = setInterval(removeResetBTN, 1000); // uruchamiamy odliczanie czasu
+}
+
+function removeResetBTN() {
+  resetBTN.classList.remove("resetBTN0ff");
+  clearInterval(timerRemoveResetBTN);
+  resetBTN.remove();
 }
 
 function timeDown() {
@@ -51,7 +69,7 @@ function timeDown() {
   s -= 1;
   s < 10 ? (s = "0" + s) : s;
   m < 10 ? (m = "0" + m) : m;
-  console.log(`-czas ${m} ${s}`);
+  // console.log(`-czas ${m} ${s}`);
   actualMin.textContent = m;
   actualSek.textContent = s;
 }

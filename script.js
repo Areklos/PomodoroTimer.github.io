@@ -2,6 +2,7 @@ const buttonStartDiv = document.querySelector(".buttonStartDiv");
 const startTimeBTN = document.querySelector(".startTimeBTN");
 const actualMin = document.querySelector(".actualMin");
 const actualSek = document.querySelector(".actualSek");
+const iconPause = document.querySelector(".iconPause");
 
 const pauseTimeBTN = document.createElement("button");
 pauseTimeBTN.textContent = "Pauza";
@@ -32,6 +33,7 @@ function pauseTime() {
   pauseTimeBTN.textContent = "Wznów";
   pauseTimeBTN.removeEventListener("click", pauseTime);
   pauseTimeBTN.addEventListener("click", wznowTime);
+  iconPause.style.scale = 1; // pokazanie DiV
   // pauseTimeBTN.replaceWith(startTimeBTN);
   // startTimeBTN.addEventListener("click", startTimeDown);
   clearInterval(timer);
@@ -40,6 +42,7 @@ function pauseTime() {
 function wznowTime() {
   timer = setInterval(timeDown, 1000);
   pauseTimeBTN.textContent = "Pauza";
+  iconPause.style.scale = 0;
   pauseTimeBTN.removeEventListener("click", wznowTime);
   pauseTimeBTN.addEventListener("click", pauseTime);
 }

@@ -77,4 +77,8 @@ function timeDown() {
   actualSek.textContent = s;
 }
 
+function barTime() {
+  const plusTime = document.createElement(div);
+}
+
 startTimeBTN.addEventListener("click", startTimeDown);

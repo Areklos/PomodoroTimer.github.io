@@ -3,6 +3,8 @@ const startTimeBTN = document.querySelector(".startTimeBTN");
 const actualMin = document.querySelector(".actualMin");
 const actualSek = document.querySelector(".actualSek");
 const iconPause = document.querySelector(".iconPause");
+const plusTime = document.querySelector(".plusTime");
+const minusTime = document.querySelector(".minusTime");
 
 const pauseTimeBTN = document.createElement("button");
 pauseTimeBTN.textContent = "Pauza";
@@ -53,6 +55,7 @@ function resetTime() {
   actualSek.textContent = "00";
   resetBTN.classList.add("resetBTN0ff");
   pauseTimeBTN.replaceWith(startTimeBTN);
+  iconPause.style.scale = 0;
   timerRemoveResetBTN = setInterval(removeResetBTN, 1000); // uruchamiamy odliczanie czasu
 }
 
@@ -77,8 +80,33 @@ function timeDown() {
   actualSek.textContent = s;
 }
 
-function barTime() {
-  const plusTime = document.createElement(div);
+function addOneMinute() {
+  let m = Number(actualMin.textContent);
+  if (m < 25) {
+    m += 1;
+    m < 10 ? (m = "0" + m) : m;
+    if (m >= 25) actualSek.textContent = "00";
+  } else {
+    return;
+  }
+  actualMin.textContent = m;
+}
+function minusOneMinute() {
+  let m = Number(actualMin.textContent);
+  if (m > 0) {
+    m -= 1;
+    m < 10 ? (m = "0" + m) : m;
+    // if (m <= 0) actualSek.textContent = "00";
+  } else {
+    return;
+  }
+  actualMin.textContent = m;
 }
 
+// function barTime() {
+//   const plusTime = document.createElement(div);
+// }
+
 startTimeBTN.addEventListener("click", startTimeDown);
+plusTime.addEventListener("click", addOneMinute);
+minusTime.addEventListener("click", minusOneMinute);

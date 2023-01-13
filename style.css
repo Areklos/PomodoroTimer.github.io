@@ -139,6 +139,10 @@ span.actualSek {
   scale: 0;
 }
 
+.iconPause.show {
+  scale: 1;
+}
+
 .recPause {
   width: 6px;
   height: 24px;
@@ -165,19 +169,23 @@ span.actualSek {
   font-weight: 900;
   text-align: center;
   line-height: 35px;
+  cursor: pointer;
 }
 .plusTime {
-  animation: plusTimeMove 1s forwards;
+  animation: plusTimeMove 1s both;
 }
 .minusTime {
   line-height: 30px;
-  animation: minusTimeMove 1s forwards;
+  animation: minusTimeMove 1s both;
 }
 
 .barOutside {
   position: absolute;
   left: 0;
   top: 7.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform: translate(-50%);
   width: 0px;
   height: 20px;
@@ -186,23 +194,24 @@ span.actualSek {
 }
 
 .barInside {
-  position: absolute;
-  left: 0;
-  top: 14px;
-  transform: translate(-50%);
-  width: 160px;
-  height: 7px;
+  /* position: absolute;
+  left: 0; */
+  /* top: 14px; */
+  display: flex;
+  justify-content: end;
+  /* transform: translate(-50%); */
+  height: 10px;
   border-radius: 5px;
   background-color: #464646;
+  overflow: hidden;
   animation: barInsaidStretch 0.6s 0.4s both;
 }
 
 .barProgres {
-  width: 90%;
-  height: 3px;
-  margin-top: 2px;
-  margin-left: 10%;
-  background-color: #e6e6e6;
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  background-color: #bbb9b9;
 }
 
 @keyframes moeveResetBTNOn {
@@ -269,6 +278,7 @@ span.actualSek {
     left: 0;
   }
   100% {
+    scale: 1;
     left: 100px;
   }
 }
@@ -292,6 +302,7 @@ span.actualSek {
     left: 0;
   }
   100% {
+    scale: 1;
     left: -100px;
   }
 }
@@ -307,8 +318,10 @@ span.actualSek {
 @keyframes barInsaidStretch {
   0% {
     width: 0;
+    padding: 0px;
   }
   100% {
+    padding: 2px;
     width: 160px;
   }
 }

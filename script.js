@@ -109,10 +109,12 @@ function countBarProgres(m, s, setMin = 25, setSec = 0) {
 
 function addOneMinute() {
   let m = Number(actualMin.textContent);
+  const s = Number(actualSek.textContent);
   if (m < 25) {
     m += 1;
     m < 10 ? (m = "0" + m) : m;
     if (m >= 25) actualSek.textContent = "00";
+    barProgres.style.width = countBarProgres(m, s);
   } else {
     return;
   }
@@ -120,10 +122,12 @@ function addOneMinute() {
 }
 function minusOneMinute() {
   let m = Number(actualMin.textContent);
+  const s = Number(actualSek.textContent);
   if (m > 0) {
     m -= 1;
     m < 10 ? (m = "0" + m) : m;
     // if (m <= 0) actualSek.textContent = "00";
+    barProgres.style.width = countBarProgres(m, s);
   } else {
     return;
   }

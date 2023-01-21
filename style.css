@@ -170,6 +170,8 @@ span.actualSek {
   text-align: center;
   line-height: 35px;
   cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
 }
 .minusTime {
   animation: minusTimeMove 1s both;
@@ -276,8 +278,10 @@ span.actualSek {
   40% {
     scale: 1;
     left: 0;
+    transform: translate(-50%);
   }
   100% {
+    transform: translate(-50%);
     scale: 1;
     left: 100px;
   }
@@ -303,7 +307,7 @@ span.actualSek {
   }
   100% {
     scale: 1;
-    left: -100px;
+    left: -101px;
   }
 }
 
@@ -323,5 +327,27 @@ span.actualSek {
   100% {
     padding: 2px;
     width: 160px;
+  }
+}
+
+span.ghost {
+  position: absolute;
+  background-color: white;
+  animation: show 0.6s linear;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+@keyframes show {
+  0% {
+    width: 0px;
+    height: 0px;
+    opacity: 0.5;
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
   }
 }

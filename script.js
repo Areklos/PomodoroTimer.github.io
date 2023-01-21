@@ -18,8 +18,14 @@ const resetBTN = document.createElement("button");
 resetBTN.textContent = "Reset";
 resetBTN.className = "resetBTN";
 
-let timer; // zmienna do czasu stopera
+let timerDown; // zmienna do czasu stopera
 let timerRemoveResetBTN; // opóznienie uruchomienia funkcji removeResetBTN()
+
+//Uaktualnienie paska czasu
+barProgres.style.width = countBarProgres(
+  Number(actualMin.textContent),
+  Number(actualSek.textContent)
+);
 
 // po kliknięciu na przycisk start podmieniamy przycisk "start" na przycisk "pauza"
 function startTimeDown() {
@@ -28,7 +34,7 @@ function startTimeDown() {
   // startTimeBTN.remove();
   startTimeBTN.replaceWith(pauseTimeBTN);
   pauseTimeBTN.addEventListener("click", pauseTime);
-  timer = setInterval(timeDown, 1000); // uruchamiamy odliczanie czasu
+  timerDown = setInterval(timeDown, 1000); // uruchamiamy odliczanie czasu
   buttonStartDiv.appendChild(resetBTN);
   resetBTN.addEventListener("click", resetTime);
 }
@@ -45,34 +51,33 @@ function pauseTime() {
   console.log("klik pauseTime");
   pauseTimeBTN.textContent = "Wznów";
   pauseTimeBTN.removeEventListener("click", pauseTime);
-  pauseTimeBTN.addEventListener("click", wznowTime);
+  pauseTimeBTN.addEventListener("click", resumeTime);
   iconPause.classList.toggle("show");
+  clearInterval(timerDown);
   // iconPause.style.scale = 1; // pokazanie DiV
   // pauseTimeBTN.replaceWith(startTimeBTN);
   // startTimeBTN.addEventListener("click", startTimeDown);
-  clearInterval(timer);
 }
 
-function wznowTime() {
+function resumeTime() {
   console.log("klik wznówTime");
-  timer = setInterval(timeDown, 1000);
+  timerDown = setInterval(timeDown, 1000);
   pauseTimeBTN.textContent = "Pauza";
   iconPause.classList.toggle("show");
-  // iconPause.style.scale = 0;
-  pauseTimeBTN.removeEventListener("click", wznowTime);
+  pauseTimeBTN.removeEventListener("click", resumeTime);
   pauseTimeBTN.addEventListener("click", pauseTime);
 }
 
 function resetTime() {
   console.log("klik resetTime");
-  clearInterval(timer);
+  clearInterval(timerDown);
   actualMin.textContent = "25";
   actualSek.textContent = "00";
   resetBTN.classList.add("resetBTN0ff");
-  pauseTimeBTN.removeEventListener("click", wznowTime);
+  pauseTimeBTN.removeEventListener("click", resumeTime);
   pauseTimeBTN.removeEventListener("click", pauseTime);
   barProgres.style.width = countBarProgres(25, 0);
-  timerRemoveResetBTN = setInterval(removeResetBTN, 500); // uruchamiamy odliczanie czasu
+  timerRemoveResetBTN = setInterval(removeResetBTN, 500); // uruchamiamy odliczanie czasu animacji resetu
 }
 
 function removeResetBTN() {
@@ -98,6 +103,14 @@ function timeDown() {
   // console.log(`-czas ${m} ${s}`);
   actualMin.textContent = m;
   actualSek.textContent = s;
+  if (m <= 0 && s <= 0) {
+    timeIsUp();
+  }
+}
+function timeIsUp() {
+  console.log(" czas miną");
+  clearInterval(timerDown);
+  new Audio("/sound/a.wav").play();
 }
 
 function countBarProgres(m, s, setMin = 25, setSec = 0) {
@@ -109,27 +122,21 @@ function countBarProgres(m, s, setMin = 25, setSec = 0) {
 
 function addOneMinute() {
   let m = Number(actualMin.textContent);
-  const s = Number(actualSek.textContent);
   if (m < 25) {
     m += 1;
     m < 10 ? (m = "0" + m) : m;
     if (m >= 25) actualSek.textContent = "00";
-    barProgres.style.width = countBarProgres(m, s);
-  } else {
-    return;
+    barProgres.style.width = countBarProgres(m, Number(actualSek.textContent));
   }
   actualMin.textContent = m;
 }
 function minusOneMinute() {
   let m = Number(actualMin.textContent);
-  const s = Number(actualSek.textContent);
   if (m > 0) {
     m -= 1;
     m < 10 ? (m = "0" + m) : m;
     // if (m <= 0) actualSek.textContent = "00";
-    barProgres.style.width = countBarProgres(m, s);
-  } else {
-    return;
+    barProgres.style.width = countBarProgres(m, Number(actualSek.textContent));
   }
   actualMin.textContent = m;
 }
@@ -141,3 +148,40 @@ function minusOneMinute() {
 startTimeBTN.addEventListener("click", startTimeDown);
 plusTime.addEventListener("click", addOneMinute);
 minusTime.addEventListener("click", minusOneMinute);
+
+plusTime.addEventListener("click", function (e) {
+  console.log(`x ${e.clientX}, y${e.clientY}`);
+  console.log(`top ${e.target.getBoundingClientRect().top}, sY ${scrollY}`);
+  //pobieramy pozycje prostokąta obrysowanego
+  let x = e.clientX - e.target.getBoundingClientRect().left;
+  let y = e.clientY - e.target.getBoundingClientRect().top;
+
+  const newSpan = document.createElement("span");
+  newSpan.classList.add("ghost");
+  newSpan.style.left = x + "px";
+  newSpan.style.top = y + "px";
+  this.appendChild(newSpan);
+});
+
+// const links = document.querySelectorAll("a");
+// links.forEach((btn) =>
+//   btn.addEventListener("click", function (e) {
+//     console.log(e.clientX + "x");
+//     console.log(e.clientY + "Y");
+
+//     console.log(e.target.offsetLeft + "left");
+//     console.log(e.target.offsetTop + "top");
+
+//     //   console.log(e.target);
+
+//     let x = e.clientX - e.target.offsetLeft;
+//     console.log(x);
+//     let y = e.clientY - e.target.offsetTop;
+//     console.log(y);
+
+//     const newSpan = document.createElement("span");
+//     newSpan.style.left = x + "px";
+//     newSpan.style.top = y + "px";
+//     this.appendChild(newSpan);
+//   })
+// );

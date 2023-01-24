@@ -8,6 +8,8 @@ const minusTime = document.querySelector(".minusTime");
 const barOutside = document.querySelector(".barOutside");
 const barInside = document.querySelector(".barInside");
 const barProgres = document.querySelector(".barProgres");
+const btnDailyStatic = document.querySelector(".btnDailyStatic");
+const windowTime = document.querySelector(".windowTime");
 
 const pauseTimeBTN = document.createElement("button");
 pauseTimeBTN.textContent = "Pauza";
@@ -18,8 +20,10 @@ const resetBTN = document.createElement("button");
 resetBTN.textContent = "Reset";
 resetBTN.className = "resetBTN";
 
-let timerDown; // zmienna do czasu stopera
+let timerDown; // dekramentacja minutnika
 let timerRemoveResetBTN; // opóznienie uruchomienia funkcji removeResetBTN()
+
+console.log(`START ${windowTime.classList.contains("increaseSizeWindowTime")}`);
 
 //Uaktualnienie paska czasu
 barProgres.style.width = countBarProgres(
@@ -27,6 +31,7 @@ barProgres.style.width = countBarProgres(
   Number(actualSek.textContent)
 );
 
+//######################  Obsługa WindowTime  ##################
 // po kliknięciu na przycisk start podmieniamy przycisk "start" na przycisk "pauza"
 function startTimeDown() {
   console.log("klik startTimeDown");
@@ -38,14 +43,6 @@ function startTimeDown() {
   buttonStartDiv.appendChild(resetBTN);
   resetBTN.addEventListener("click", resetTime);
 }
-
-// function barTimeToggle() {
-//   plusTime.classList.toggle("show");
-//   minusTime.classList.toggle("show");
-//   barOutside.classList.toggle("show");
-//   barInside.classList.toggle("show");
-//   barProgres.classList.toggle("show");
-// }
 
 function pauseTime() {
   console.log("klik pauseTime");
@@ -89,6 +86,17 @@ function removeResetBTN() {
   resetBTN.remove();
 }
 
+function changeSizeWindowTime() {
+  if (windowTime.classList.contains("increaseSizeWindowTime")) {
+    windowTime.classList.remove("increaseSizeWindowTime");
+    windowTime.classList.add("decreaseSizeWindowTime");
+  } else {
+    windowTime.classList.add("increaseSizeWindowTime");
+    windowTime.classList.remove("decreaseSizeWindowTime");
+  }
+}
+
+//######################  Obsługa czasu  ##################
 function timeDown() {
   let m = Number(actualMin.textContent);
   let s = Number(actualSek.textContent);
@@ -116,8 +124,8 @@ function timeIsUp() {
 function countBarProgres(m, s, setMin = 25, setSec = 0) {
   const allSecond = setMin * 60 + setSec;
   const leftSecond = m * 60 + s;
-  const widthPrecent = Math.floor((leftSecond * 100) / allSecond);
-  return widthPrecent + "%";
+  const widthPrecent = (leftSecond * 100) / allSecond;
+  return `${widthPrecent}%`;
 }
 
 function addOneMinute() {
@@ -127,8 +135,8 @@ function addOneMinute() {
     m < 10 ? (m = "0" + m) : m;
     if (m >= 25) actualSek.textContent = "00";
     barProgres.style.width = countBarProgres(m, Number(actualSek.textContent));
+    actualMin.textContent = m;
   }
-  actualMin.textContent = m;
 }
 function minusOneMinute() {
   let m = Number(actualMin.textContent);
@@ -137,17 +145,16 @@ function minusOneMinute() {
     m < 10 ? (m = "0" + m) : m;
     // if (m <= 0) actualSek.textContent = "00";
     barProgres.style.width = countBarProgres(m, Number(actualSek.textContent));
+    actualMin.textContent = m;
   }
-  actualMin.textContent = m;
 }
 
-// function barTime() {
-//   const plusTime = document.createElement(div);
-// }
+//######################  Listener ##################
 
 startTimeBTN.addEventListener("click", startTimeDown);
 plusTime.addEventListener("click", addOneMinute);
 minusTime.addEventListener("click", minusOneMinute);
+btnDailyStatic.addEventListener("click", changeSizeWindowTime);
 
 plusTime.addEventListener("click", function (e) {
   console.log(`x ${e.clientX}, y${e.clientY}`);
@@ -185,3 +192,10 @@ plusTime.addEventListener("click", function (e) {
 //     this.appendChild(newSpan);
 //   })
 // );
+// barProgres.addEventListener("click", (e) => {
+//   let width = e.offsetX;
+//   console.log(width);
+// });
+
+// U+02228  encja >
+// U+022CE encja > lekko zakrzywiona

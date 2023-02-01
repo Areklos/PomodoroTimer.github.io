@@ -6,7 +6,7 @@
 
 html {
   --testBorder: 0; /* 1 - on, 0 - off */
-  --durationWindowTime: 3s; /* Czas powiększania i zmniejszania okna WindowTime */
+  --durationWindowTime: 1s; /* Czas powiększania i zmniejszania okna WindowTime */
 }
 
 body {

@@ -31,6 +31,15 @@ barProgres.style.width = countBarProgres(
   Number(actualSek.textContent)
 );
 
+// Pozwolenie  na powiadomienie o upływie czasu
+if (Notification.permission === "granted") {
+  console.log("mamy pozwolenie na powiadomienia");
+} else if (Notification.permission !== "denied") {
+  Notification.requestPermission().then((permission) => {
+    console.log(permission);
+  });
+}
+
 //######################  Obsługa WindowTime  ##################
 // po kliknięciu na przycisk start podmieniamy przycisk "start" na przycisk "pauza"
 function startTimeDown() {
@@ -118,6 +127,8 @@ function timeIsUp() {
   console.log(" czas miną");
   clearInterval(timerDown);
   new Audio("/sound/a.wav").play();
+  console.log("skończłeś naukę");
+  new Notification("Koniec nauki", { icon: "timeIcon.png" });
 }
 
 function countBarProgres(m, s, setMin = 25, setSec = 0) {

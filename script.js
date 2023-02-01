@@ -168,8 +168,27 @@ plusTime.addEventListener("click", function (e) {
   newSpan.style.top = y + "px";
   this.appendChild(newSpan);
 
+  // usuwamy spana po 500ms
   setTimeout(() => {
-    // usuwamy spana po 500ms
+    document.querySelector(".ghost").remove();
+  }, 500);
+});
+
+minusTime.addEventListener("click", function (e) {
+  console.log(`x ${e.clientX}, y${e.clientY}`);
+  console.log(`top ${e.target.getBoundingClientRect().top}, sY ${scrollY}`);
+  //pobieramy pozycje prostokąta obrysowanego
+  let x = e.clientX - e.target.getBoundingClientRect().left;
+  let y = e.clientY - e.target.getBoundingClientRect().top;
+
+  const newSpan = document.createElement("span");
+  newSpan.classList.add("ghost");
+  newSpan.style.left = x + "px";
+  newSpan.style.top = y + "px";
+  this.appendChild(newSpan);
+
+  // usuwamy spana po 500ms
+  setTimeout(() => {
     document.querySelector(".ghost").remove();
   }, 500);
 });

@@ -74,7 +74,7 @@ function resetTime() {
   pauseTimeBTN.removeEventListener("click", resumeTime);
   pauseTimeBTN.removeEventListener("click", pauseTime);
   barProgres.style.width = countBarProgres(25, 0);
-  timerRemoveResetBTN = setInterval(removeResetBTN, 500); // uruchamiamy odliczanie czasu animacji resetu
+  timerRemoveResetBTN = setTimeout(removeResetBTN, 500); // uruchamiamy odliczanie czasu animacji resetu
 }
 
 function removeResetBTN() {
@@ -82,7 +82,6 @@ function removeResetBTN() {
   iconPause.classList.remove("show");
   pauseTimeBTN.textContent = "Pauza";
   resetBTN.classList.remove("resetBTN0ff");
-  clearInterval(timerRemoveResetBTN);
   resetBTN.remove();
 }
 
@@ -149,13 +148,13 @@ function minusOneMinute() {
   }
 }
 
-//######################  Listener ##################
-
+//######################  Listener ##################################
 startTimeBTN.addEventListener("click", startTimeDown);
 plusTime.addEventListener("click", addOneMinute);
 minusTime.addEventListener("click", minusOneMinute);
 btnDailyStatic.addEventListener("click", changeSizeWindowTime);
 
+//#####################  DODATKOWE ANIMACJE  ############################
 plusTime.addEventListener("click", function (e) {
   console.log(`x ${e.clientX}, y${e.clientY}`);
   console.log(`top ${e.target.getBoundingClientRect().top}, sY ${scrollY}`);
@@ -168,6 +167,11 @@ plusTime.addEventListener("click", function (e) {
   newSpan.style.left = x + "px";
   newSpan.style.top = y + "px";
   this.appendChild(newSpan);
+
+  setTimeout(() => {
+    // usuwamy spana po 500ms
+    document.querySelector(".ghost").remove();
+  }, 500);
 });
 
 // const links = document.querySelectorAll("a");

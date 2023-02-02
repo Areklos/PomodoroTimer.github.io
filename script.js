@@ -119,16 +119,23 @@ function timeDown() {
   // console.log(`-czas ${m} ${s}`);
   actualMin.textContent = m;
   actualSek.textContent = s;
-  if (m <= 0 && s <= 0) {
-    timeIsUp();
-  }
+  if (m === "03" && s === "00") left3Min();
+  if (m <= 0 && s <= 0) timeIsUp();
 }
 function timeIsUp() {
-  console.log(" czas miną");
+  console.log(" czas miną, skończłeś naukę");
   clearInterval(timerDown);
   new Audio("/sound/a.wav").play();
-  console.log("skończłeś naukę");
   new Notification("Koniec nauki", { icon: "timeIcon.png" });
+}
+
+function left3Min() {
+  console.log("3 min");
+  new Notification("Zaraz koniec", {
+    body: "Zostały 3 min",
+    icon: "timeIcon.png",
+    silent: true,
+  });
 }
 
 function countBarProgres(m, s, setMin = 25, setSec = 0) {
@@ -166,6 +173,7 @@ minusTime.addEventListener("click", minusOneMinute);
 btnDailyStatic.addEventListener("click", changeSizeWindowTime);
 
 //#####################  DODATKOWE ANIMACJE  ############################
+// animacja .ghost po nacisnieciu przycisku + lub -
 plusTime.addEventListener("click", function (e) {
   console.log(`x ${e.clientX}, y${e.clientY}`);
   console.log(`top ${e.target.getBoundingClientRect().top}, sY ${scrollY}`);

@@ -11,6 +11,9 @@ const barProgres = document.querySelector(".barProgres");
 const btnDailyStatic = document.querySelector(".btnDailyStatic");
 const windowTime = document.querySelector(".windowTime");
 
+const svg = document.querySelector("svg");
+const timeLine = document.querySelector(".timeLine");
+
 const pauseTimeBTN = document.createElement("button");
 pauseTimeBTN.textContent = "Pauza";
 pauseTimeBTN.className = "startPauseBTN";
@@ -19,6 +22,18 @@ pauseTimeBTN.classList.add("pauseTimeBTN");
 const resetBTN = document.createElement("button");
 resetBTN.textContent = "Reset";
 resetBTN.className = "resetBTN";
+
+const beam11 = {
+  startTime: "as",
+  stopTime: false,
+};
+
+// const person = {
+//   isHuman: false,
+//   printIntroduction: function () {
+//     console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+//   },
+// };
 
 let timerDown; // dekramentacja minutnika
 let timerRemoveResetBTN; // opóznienie uruchomienia funkcji removeResetBTN()
@@ -51,6 +66,8 @@ function startTimeDown() {
   timerDown = setInterval(timeDown, 1000); // uruchamiamy odliczanie czasu
   buttonStartDiv.appendChild(resetBTN);
   resetBTN.addEventListener("click", resetTime);
+
+  startBeam();
 }
 
 function pauseTime() {
@@ -84,6 +101,7 @@ function resetTime() {
   pauseTimeBTN.removeEventListener("click", pauseTime);
   barProgres.style.width = countBarProgres(25, 0);
   timerRemoveResetBTN = setTimeout(removeResetBTN, 500); // uruchamiamy odliczanie czasu animacji resetu
+  stopBeam();
 }
 
 function removeResetBTN() {
@@ -164,6 +182,47 @@ function minusOneMinute() {
     barProgres.style.width = countBarProgres(m, Number(actualSek.textContent));
     actualMin.textContent = m;
   }
+}
+
+//############################# Rysowanei fasolek  #########################################################
+
+// class bean {
+//   constructor() {
+//     this.timeStart = new Date();
+//     this.tiemStop;
+//   }
+// }
+
+function startBeam() {
+  beam11.startTime = new Date();
+}
+
+function stopBeam() {
+  beam11.stopTime = new Date();
+  beam11.duration = beam11.stopTime - beam11.startTime;
+  // beam11.startTime.setHours(20);
+  // beam11.startTime.setMinutes(0);
+  // beam11.startTime.setSeconds(0);
+
+  // beam11.startTime.setMilliseconds(0);
+  console.log("🚀  startTime", beam11.startTime);
+
+  let beam11div = document.createElement("div");
+  beam11div.classList.add("beam11");
+  timeLine.appendChild(beam11div);
+  const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
+  const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
+
+  const hour8 = new Date(); // disiejszy dzień 8h
+  hour8.setHours(8); //GTM+1
+  hour8.setMinutes(0);
+  hour8.setSeconds(0);
+  hour8.setMilliseconds(0);
+
+  const minAfter8 = Math.round((beam11.startTime - hour8) / (60 * 1000)); // róznica czasu
+  const leftOffset = minAfter8 * pxnaMin;
+
+  document.documentElement.style.setProperty("--beamLeft", leftOffset + "px");
 }
 
 //######################  Listener ##################################

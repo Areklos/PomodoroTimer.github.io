@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-html {
+:root {
+  --beamLeft: 200px;
   --testBorder: 0; /* 1 - on, 0 - off */
   --durationWindowTime: 1s; /* Czas powiększania i zmniejszania okna WindowTime */
 }
@@ -509,4 +510,14 @@ span.ghost {
     height: 100px;
     opacity: 0;
   }
+}
+
+.beam11 {
+  position: absolute;
+  left: var(--beamLeft);
+  top: 5px;
+  width: 17px;
+  height: 12px;
+  background-color: #ff8552;
+  border-radius: 20px;
 }

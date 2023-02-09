@@ -28,6 +28,18 @@ const beam11 = {
   stopTime: false,
 };
 
+class Beam {
+  start = new Date();
+  stop = 0;
+  hms = function () {
+    console.log(this.getHours());
+  };
+}
+
+const b1 = new Beam();
+
+console.log("🚀  b1.start;", b1.start.hms);
+
 // const person = {
 //   isHuman: false,
 //   printIntroduction: function () {
@@ -41,10 +53,7 @@ let timerRemoveResetBTN; // opóznienie uruchomienia funkcji removeResetBTN()
 console.log(`START ${windowTime.classList.contains("increaseSizeWindowTime")}`);
 
 //Uaktualnienie paska czasu
-barProgres.style.width = countBarProgres(
-  Number(actualMin.textContent),
-  Number(actualSek.textContent)
-);
+barProgres.style.width = countBarProgres(Number(actualMin.textContent), Number(actualSek.textContent));
 
 // Pozwolenie  na powiadomienie o upływie czasu
 if (Notification.permission === "granted") {
@@ -203,11 +212,10 @@ function stopBeam() {
   // beam11.startTime.setHours(8);
 
   const eightHour = 8 * 60;
-  const minutesLeftOffset =
-    beam11.stopTime.getMinutes() + beam11.stopTime.getHours() * 60 - eightHour;
+  const minutesLeftOffset = beam11.stopTime.getMinutes() + beam11.stopTime.getHours() * 60 - eightHour;
 
-  console.log(`startTime ${beam11.startTime}`);
-  console.log("🚀  stopTime", beam11.stopTime);
+  console.log(`startTime ${beam11.startTime.hms()}`);
+  console.log("🚀  stopTime", beam11.stopTime.hms());
   console.log("🚀  minutesLeftOffset", minutesLeftOffset);
 
   let beam11div = document.createElement("div");
@@ -220,6 +228,10 @@ function stopBeam() {
   const leftOffset = minutesLeftOffset * pxnaMin;
   document.documentElement.style.setProperty("--beamLeft", leftOffset + "px");
 }
+
+// beam11.prototype.hms = function () {
+//   console.log(this.getHours());
+// };
 
 //######################  Listener ##################################
 startTimeBTN.addEventListener("click", startTimeDown);

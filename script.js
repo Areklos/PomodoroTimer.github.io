@@ -64,8 +64,8 @@ function startTimeDown() {
   timerDown = setInterval(timeDown, 1000); // uruchamiamy odliczanie czasu
   buttonStartDiv.appendChild(resetBTN);
   resetBTN.addEventListener("click", resetTime);
-
-  startBeam();
+  beam.addBeam(new Date());
+  // startBeam();
 }
 
 function pauseTime() {
@@ -99,7 +99,7 @@ function resetTime() {
   pauseTimeBTN.removeEventListener("click", pauseTime);
   barProgres.style.width = countBarProgres(25, 0);
   timerRemoveResetBTN = setTimeout(removeResetBTN, 500); // uruchamiamy odliczanie czasu animacji resetu
-  stopBeam();
+  // stopBeam();
 }
 
 function removeResetBTN() {
@@ -185,33 +185,34 @@ function minusOneMinute() {
 //############################# Rysowanei fasolek  #########################################################
 
 const beam = new Beam();
+beam.printAllBeams();
 
-function startBeam() {
-  beam11.startTime = new Date();
-}
+// function startBeam() {
+//   beam11.startTime = new Date();
+// }
 
-function stopBeam() {
-  beam11.stopTime = new Date();
-  beam11.duration = beam11.stopTime - beam11.startTime;
-  // beam11.startTime.setHours(8);
+// function stopBeam() {
+//   beam11.stopTime = new Date();
+//   beam11.duration = beam11.stopTime - beam11.startTime;
+//   // beam11.startTime.setHours(8);
 
-  const eightHour = 8 * 60;
-  const minutesLeftOffset = beam11.stopTime.getMinutes() + beam11.stopTime.getHours() * 60 - eightHour;
+//   const eightHour = 8 * 60;
+//   const minutesLeftOffset = beam11.stopTime.getMinutes() + beam11.stopTime.getHours() * 60 - eightHour;
 
-  console.log(`startTime ${beam11.startTime.hms()}`);
-  console.log("🚀  stopTime", beam11.stopTime.hms());
-  console.log("🚀  minutesLeftOffset", minutesLeftOffset);
+//   console.log(`startTime ${beam11.startTime.hms()}`);
+//   console.log("🚀  stopTime", beam11.stopTime.hms());
+//   console.log("🚀  minutesLeftOffset", minutesLeftOffset);
 
-  let beam11div = document.createElement("div");
-  beam11div.classList.add("beam11");
-  timeLine.appendChild(beam11div);
+//   let beam11div = document.createElement("div");
+//   beam11div.classList.add("beam11");
+//   timeLine.appendChild(beam11div);
 
-  const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
-  const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
+//   const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
+//   const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
 
-  const leftOffset = minutesLeftOffset * pxnaMin;
-  document.documentElement.style.setProperty("--beamLeft", leftOffset + "px");
-}
+//   const leftOffset = minutesLeftOffset * pxnaMin;
+//   document.documentElement.style.setProperty("--beamLeft", leftOffset + "px");
+// }
 
 // beam11.prototype.hms = function () {
 //   console.log(this.getHours());

@@ -28,24 +28,13 @@ const beam11 = {
   stopTime: false,
 };
 
-class Beam {
+class BeamC {
   start = new Date();
   stop = 0;
   hms = function () {
     console.log(this.getHours());
   };
 }
-
-const b1 = new Beam();
-
-console.log("🚀  b1.start;", b1.start.hms);
-
-// const person = {
-//   isHuman: false,
-//   printIntroduction: function () {
-//     console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
-//   },
-// };
 
 let timerDown; // dekramentacja minutnika
 let timerRemoveResetBTN; // opóznienie uruchomienia funkcji removeResetBTN()
@@ -195,12 +184,7 @@ function minusOneMinute() {
 
 //############################# Rysowanei fasolek  #########################################################
 
-// class bean {
-//   constructor() {
-//     this.timeStart = new Date();
-//     this.tiemStop;
-//   }
-// }
+const beam = new Beam();
 
 function startBeam() {
   beam11.startTime = new Date();

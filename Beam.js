@@ -31,6 +31,12 @@ class Beam {
     beamDiv.classList.add("beam");
     beamDiv.style.left = leftOffset + "px";
     timeLine.appendChild(beamDiv);
+
+    const beamTooltip = document.createElement("div");
+
+    beamTooltip.textContent = `start: ${startPrint.hm()}`;
+    beamTooltip.classList.add("beamTooltip");
+    beamDiv.appendChild(beamTooltip);
   }
 
   // po kliknieciu przycisku "start nauki" tworzymy nową fasolke z datą poczatku i rysujemy na timeline
@@ -43,5 +49,13 @@ class Beam {
   // po upływie czasu wpisujemy czas konca
   addStopTimeToBeam(stop) {
     this.allBeams[this.allBeams.length - 1].stop = stop;
+  }
+
+  getNumber() {
+    return this.allBeams.length;
+  }
+
+  getStartTime(i) {
+    return this.allBeams[i].start.hms();
   }
 }

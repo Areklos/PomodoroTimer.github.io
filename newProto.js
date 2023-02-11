@@ -6,3 +6,11 @@ Date.prototype.hms = function () {
   const print = `${h}:${m}:${s}`;
   return print;
 };
+
+// zwraca datę w postaci hh:mm
+Date.prototype.hm = function () {
+  const h = this.getHours() < 10 ? "0" + this.getHours() : this.getHours();
+  const m = this.getMinutes() < 10 ? "0" + this.getMinutes() : this.getMinutes();
+  const print = `${h}:${m}`;
+  return print;
+};

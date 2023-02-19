@@ -13,6 +13,7 @@ const windowTime = document.querySelector(".windowTime");
 
 const svg = document.querySelector("svg");
 const timeLine = document.querySelector(".timeLine");
+const beamsDiv = document.querySelector(".beams");
 
 const pauseTimeBTN = document.createElement("button");
 pauseTimeBTN.textContent = "Pauza";
@@ -28,13 +29,13 @@ const beam11 = {
   stopTime: false,
 };
 
-class BeamC {
-  start = new Date();
-  stop = 0;
-  hms = function () {
-    console.log(this.getHours());
-  };
-}
+// class BeamC {
+//   start = new Date();
+//   stop = 0;
+//   hms = function () {
+//     console.log(this.getHours());
+//   };
+// }
 
 let timerDown; // dekramentacja minutnika
 let timerRemoveResetBTN; // opóznienie uruchomienia funkcji removeResetBTN()

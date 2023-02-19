@@ -522,12 +522,12 @@ span.ghost {
 
 .beam {
   position: absolute;
-  top: 5px;
+  top: 3px;
   width: 17px;
-  height: 12px;
+  height: 17px;
   background-color: #ff8652;
-  border-radius: 20px;
-  border: 3px solid white;
+  border-radius: 50%;
+  /* border: 3px solid white; */
 }
 
 .beamTooltip {
@@ -536,7 +536,7 @@ span.ghost {
   transform: translateX(-50%) translateX(6px);
   width: 100px;
   /* height: 30px; */
-  background-color: #f7a886;
+  background-color: #ff8652;
   font-size: 12px;
   padding: 5px;
   text-align: center;
@@ -553,7 +553,7 @@ span.ghost {
   transform: translateX(-50%) rotate(45deg);
   width: 10px;
   height: 10px;
-  background-color: #f7a886;
+  background-color: #ff8652;
 }
 
 .beam:hover .beamTooltip {

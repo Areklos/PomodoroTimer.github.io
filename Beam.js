@@ -2,11 +2,13 @@
 console.log("\x1b[1mbeamC");
 class Beam {
   constructor() {
-    this.allBeams = [
-      { start: new Date("2023-02-01 8:00:00"), stop: new Date("2023-02-01 8:25:00") },
-      { start: new Date("2023-02-01 10:00:00"), stop: new Date("2023-02-01 10:25:00") },
-      { start: new Date("2023-02-01 12:00:00"), stop: new Date("2023-02-01 12:25:00") },
-    ];
+    this.key = "beams";
+    this.allBeams = JSON.parse(localStorage.getItem(this.key)) || [];
+    // this.allBeams = [
+    //   { id: "1a", start: new Date("2023-02-01 8:00:00"), stop: new Date("2023-02-01 8:25:00") },
+    //   { id: "2a", start: new Date("2023-02-01 10:00:00"), stop: new Date("2023-02-01 10:25:00") },
+    //   { id: Date.now().toString(), start: new Date("2023-02-01 12:00:00"), stop: new Date("2023-02-01 12:25:00") },
+    // ];
   }
 
   // w forEach rysujemy wszystkie fasolki które były w bazie danych
@@ -19,7 +21,7 @@ class Beam {
   // Rysujemy na timeline jedną fasolke
   printBeam(i) {
     const beam = this.allBeams[i];
-    const startPrint = beam.start;
+    const startPrint = new Date(beam.start); // przez JSON mamy stringa a nie date
     console.log(`\x1B[34m Fasolka nr: ${i} - ${startPrint.hms()}`);
     const eightHour = 8 * 60;
     const minutesLeftOffset = startPrint.getMinutes() + startPrint.getHours() * 60 - eightHour;
@@ -27,23 +29,32 @@ class Beam {
     const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
     const leftOffset = minutesLeftOffset * pxnaMin;
 
-    const beamDiv = document.createElement("div");
-    beamDiv.classList.add("beam");
-    beamDiv.style.left = leftOffset + "px";
-    timeLine.appendChild(beamDiv);
+    const beamSymbol = document.createElement("div");
+    beamSymbol.classList.add("beam");
+    beamSymbol.style.left = leftOffset + "px";
+    beamsDiv.appendChild(beamSymbol);
 
     const beamTooltip = document.createElement("div");
-
     beamTooltip.textContent = `start: ${startPrint.hm()}`;
     beamTooltip.classList.add("beamTooltip");
-    beamDiv.appendChild(beamTooltip);
+    beamSymbol.appendChild(beamTooltip);
   }
 
   // po kliknieciu przycisku "start nauki" tworzymy nową fasolke z datą poczatku i rysujemy na timeline
   addBeam(start) {
-    const newBeam = { start, stop: "-" };
+    const newBeam = { id: start.toString(), start, stop: "-" };
     this.allBeams.push(newBeam);
     this.printBeam(this.allBeams.length - 1);
+    this.saveToLocalStorage();
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem(this.key, JSON.stringify(this.allBeams));
+  }
+
+  // do testów w consoli
+  readLS() {
+    console.log(JSON.parse(localStorage.getItem(beam.key)));
   }
 
   // po upływie czasu wpisujemy czas konca
@@ -57,5 +68,11 @@ class Beam {
 
   getStartTime(i) {
     return this.allBeams[i].start.hms();
+  }
+
+  clearBeams() {
+    while (beamsDiv.firstChild) {
+      beamsDiv.removeChild(beamsDiv.firstChild);
+    }
   }
 }

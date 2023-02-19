@@ -43,15 +43,27 @@ class Beam {
   // po kliknieciu przycisku "start nauki" tworzymy nową fasolke z datą poczatku i rysujemy na timeline
   addBeam(start) {
     const activeDay = start.displayDMY();
-    if (this.allBeams.find((beam) => beam.day === activeDay)) {
-      const newBeam = { id: start.displayDMY(), start, stop: "-" };
-      this.allBeams.day;
-    } else {
+    let actuallyDayId = 0;
+    let selectedDay = this.allBeams.find((e) => e.day === activeDay);
+    console.log("🚀  selectedDay", selectedDay);
+    if (!selectedDay) {
+      console.log("Pierwszy wpis w tym dniu");
+      this.allBeams.push(this.newDay(activeDay));
+      selectedDay = this.allBeams.find((e) => e.day === activeDay);
+      actuallyDayId = 1;
     }
+    actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
+    selectedDay.beams.push(this.newBeam(actuallyDayId, start));
 
-    this.allBeams.beams.push(newBeam);
-    this.printBeam(this.allBeams.length - 1);
     this.saveToLocalStorage();
+  }
+
+  newBeam(id, start) {
+    return { id, start, stop: "-", status: "active" };
+  }
+
+  newDay(day) {
+    return { day, beams: [] }; // jesli pierwszy raz w danym dniu uruchamiamy program to musimy dodać dzień
   }
 
   saveToLocalStorage() {

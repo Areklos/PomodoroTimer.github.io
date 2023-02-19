@@ -22,7 +22,7 @@ class Beam {
   printBeam(i) {
     const beam = this.allBeams[i];
     const startPrint = new Date(beam.start); // przez JSON mamy stringa a nie date
-    console.log(`\x1B[34m Fasolka nr: ${i} - ${startPrint.hms()}`);
+    console.log(`\x1B[34m Fasolka nr: ${i} - ${startPrint.displayHMS()}`);
     const eightHour = 8 * 60;
     const minutesLeftOffset = startPrint.getMinutes() + startPrint.getHours() * 60 - eightHour;
     const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
@@ -35,15 +35,21 @@ class Beam {
     beamsDiv.appendChild(beamSymbol);
 
     const beamTooltip = document.createElement("div");
-    beamTooltip.textContent = `start: ${startPrint.hm()}`;
+    beamTooltip.textContent = `start: ${startPrint.displayHM()}`;
     beamTooltip.classList.add("beamTooltip");
     beamSymbol.appendChild(beamTooltip);
   }
 
   // po kliknieciu przycisku "start nauki" tworzymy nową fasolke z datą poczatku i rysujemy na timeline
   addBeam(start) {
-    const newBeam = { id: start.toString(), start, stop: "-" };
-    this.allBeams.push(newBeam);
+    const activeDay = start.displayDMY();
+    if (this.allBeams.find((beam) => beam.day === activeDay)) {
+      const newBeam = { id: start.displayDMY(), start, stop: "-" };
+      this.allBeams.day;
+    } else {
+    }
+
+    this.allBeams.beams.push(newBeam);
     this.printBeam(this.allBeams.length - 1);
     this.saveToLocalStorage();
   }
@@ -67,7 +73,7 @@ class Beam {
   }
 
   getStartTime(i) {
-    return this.allBeams[i].start.hms();
+    return this.allBeams[i].start.displayHMS();
   }
 
   render() {

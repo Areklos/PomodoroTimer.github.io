@@ -186,7 +186,8 @@ function minusOneMinute() {
 //############################# Rysowanei fasolek  #########################################################
 
 const beam = new Beam();
-beam.printAllBeams();
+beam.render();
+// beam.printAllBeams();
 
 // function startBeam() {
 //   beam11.startTime = new Date();

@@ -25,7 +25,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-items: flex-start;
   width: 700px;
   height: 400px;
   background: rgba(58, 125, 68, 1);
@@ -278,18 +278,40 @@ span.actualSek {
 
 /********************   lowerWindowTime   ******************** */
 .lowerWindowTime {
-  height: 300px;
-  width: 700px;
+  height: 200px;
+  width: 100%;
   display: grid;
-  grid-template-rows: 1fr 80px 1fr;
+  grid-template-rows: 100px 80px 50px;
   border: 1px dotted rgba(0, 0, 150, var(--testBorder));
   flex-grow: 1;
 }
+/***************************************************************/
+
 .aboveTimeLine {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
+.aboveTimeLine .TimeLineSetYesterday,
+.aboveTimeLine .TimeLineTomorrow {
+  cursor: pointer;
+  color: #252525;
+  transition: 0.3s;
+}
+.aboveTimeLine .TimeLineSetYesterday:hover,
+.aboveTimeLine .TimeLineTomorrow:hover {
+  color: #000;
+  scale: 1.2;
+}
+.aboveTimeLine .TimeLineToday {
+  color: white;
+  font-size: 1.2rem;
+}
+
 .timeLine {
   width: 650px;
-  height: 50px;
   position: relative;
   margin: 0 auto;
 }
@@ -313,6 +335,9 @@ span.actualSek {
 .timeLine span:nth-of-type(4) {
   position: absolute;
   right: 0%;
+}
+
+.belowTimeLine {
 }
 
 /******************* Przycisk rozszerzający Window Time  *********************/
@@ -509,7 +534,7 @@ span.ghost {
   }
 }
 
-.beam11 {
+/* .beam11 {
   position: absolute;
   left: var(--beamLeft);
   top: 5px;
@@ -518,8 +543,9 @@ span.ghost {
   background-color: #ff8552;
   border-radius: 20px;
   border: 3px solid white;
-}
+} */
 
+/***************************  beam *****************************/
 .beam {
   position: absolute;
   top: 3px;
@@ -542,7 +568,8 @@ span.ghost {
   text-align: center;
   border-radius: 10px;
   opacity: 0;
-  transition: all 0.4s ease-out;
+  display: none;
+  transition: opacity 0.5s;
 }
 
 .beamTooltip::after {
@@ -558,4 +585,5 @@ span.ghost {
 
 .beam:hover .beamTooltip {
   opacity: 1;
+  display: block;
 }

@@ -70,6 +70,13 @@ class Beam {
     return this.allBeams[i].start.hms();
   }
 
+  render() {
+    clearBeams();
+    renderBeams();
+  }
+
+  renderBeams() {}
+
   clearBeams() {
     while (beamsDiv.firstChild) {
       beamsDiv.removeChild(beamsDiv.firstChild);

@@ -556,7 +556,7 @@ span.ghost {
   /* border: 3px solid white; */
 }
 
-.beamTooltip {
+.beamToolTip {
   position: absolute;
   top: -45px;
   transform: translateX(-50%) translateX(6px);
@@ -572,7 +572,7 @@ span.ghost {
   transition: opacity 0.5s;
 }
 
-.beamTooltip::after {
+.beamToolTip::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -583,7 +583,7 @@ span.ghost {
   background-color: #ff8652;
 }
 
-.beam:hover .beamTooltip {
+.beam:hover .beamToolTip {
   opacity: 1;
   display: block;
 }

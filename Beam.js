@@ -60,8 +60,7 @@ class Beam {
       const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
       const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
       const leftOffset = minutesLeftOffset * pxnaMin;
-      beamsDiv.appendChild(this.createBeamSymbol(leftOffset));
-      beamSymbol.appendChild(this.createBeamToolTip(startPrint));
+      beamsDiv.appendChild(this.createBeamSymbol(leftOffset, startPrint));
     });
   }
 
@@ -69,6 +68,7 @@ class Beam {
     const beamSymbol = document.createElement("div");
     beamSymbol.classList.add("beam");
     beamSymbol.style.left = leftOffset + "px";
+    beamSymbol.appendChild(this.createBeamToolTip(startPrint));
     return beamSymbol;
   }
 

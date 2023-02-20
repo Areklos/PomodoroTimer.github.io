@@ -234,18 +234,19 @@ startTimeBTN.addEventListener("click", startTimeDown);
 plusTime.addEventListener("click", addOneMinute);
 minusTime.addEventListener("click", minusOneMinute);
 btnDailyStatic.addEventListener("click", changeSizeWindowTime);
-btnYesterday.addEventListener("click", () => {
-  console.log("klik wczoraj");
 
-  const activeDay = "19-02-2023";
-  displayActiveDay.textContent = activeDay;
-  beam.render(activeDay);
+btnYesterday.addEventListener("click", () => {
+  console.log("\x1b[32m** klik wczoraj **");
+  const activeDay = displayActiveDay.textContent;
+  const newActiveDay = beam.changeDay(activeDay, "-");
+  displayActiveDay.textContent = newActiveDay;
 });
+
 btnTommorow.addEventListener("click", () => {
-  console.log("klik jutro");
-  const activeDay = "20-02-2023";
-  displayActiveDay.textContent = activeDay;
-  beam.render(activeDay);
+  console.log("\x1b[32m** klik jutro  **");
+  const activeDay = displayActiveDay.textContent;
+  const newActiveDay = beam.changeDay(activeDay, "+");
+  displayActiveDay.textContent = newActiveDay;
 });
 
 //#####################  DODATKOWE ANIMACJE  ############################

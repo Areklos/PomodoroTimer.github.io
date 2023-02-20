@@ -9,6 +9,7 @@
   --beamLeft: 200px;
   --testBorder: 0; /* 1 - on, 0 - off */
   --durationWindowTime: 1s; /* Czas powiększania i zmniejszania okna WindowTime */
+  --colorOrnage: #ff8552;
 }
 
 body {
@@ -150,7 +151,7 @@ span.actualSek {
 }
 
 .startTimeBTN {
-  background-color: #ff8552;
+  background-color: var(--colorOrnage);
 }
 .pauseTimeBTN {
   background-color: #69b578;
@@ -271,7 +272,7 @@ span.actualSek {
   height: 100%;
   width: 100%;
   border-radius: 2px;
-  background-color: #ff8552;
+  background-color: var(--colorOrnage);
 }
 .wrapBtnDailyStatic {
 }
@@ -297,17 +298,20 @@ span.actualSek {
 .aboveTimeLine .setYesterday,
 .aboveTimeLine .setTomorrow {
   cursor: pointer;
-  color: #252525;
+  width: 70px;
+  color: var(--colorOrnage);
   transition: 0.3s;
+  font-weight: 450;
 }
 .aboveTimeLine .setYesterday:hover,
 .aboveTimeLine .setTomorrow:hover {
   color: #000;
-  scale: 1.2;
+  scale: 1.1;
 }
 .aboveTimeLine .timeLineToday {
   color: white;
   font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .timeLine {
@@ -316,7 +320,7 @@ span.actualSek {
   margin: 0 auto;
 }
 .hourLabel {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 .timeLine span {
   color: white;
@@ -548,11 +552,13 @@ span.ghost {
 /***************************  beam *****************************/
 .beam {
   position: absolute;
-  top: 3px;
-  width: 17px;
-  height: 17px;
-  background-color: #ff8652;
-  border-radius: 50%;
+  --size25min: 23px;
+  top: 0px;
+  width: var(--size25min);
+  height: var(--size25min);
+  background-color: var(--colorOrnage);
+  border-radius: 15px;
+  transition: 0.5s;
   /* border: 3px solid white; */
 }
 
@@ -562,7 +568,7 @@ span.ghost {
   transform: translateX(-50%) translateX(6px);
   width: 100px;
   /* height: 30px; */
-  background-color: #ff8652;
+  background-color: var(--colorOrnage);
   font-size: 12px;
   padding: 5px;
   text-align: center;
@@ -580,10 +586,15 @@ span.ghost {
   transform: translateX(-50%) rotate(45deg);
   width: 10px;
   height: 10px;
-  background-color: #ff8652;
+  background-color: var(--colorOrnage);
 }
 
 .beam:hover .beamToolTip {
   opacity: 1;
   display: block;
+}
+.beam:hover {
+  background-color: #a83b0c;
+  scale: 2;
+  z-index: 1;
 }

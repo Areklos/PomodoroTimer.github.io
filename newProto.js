@@ -22,3 +22,12 @@ Date.prototype.displayDMY = function () {
   const print = `${d}-${m}-${y}`;
   return print;
 };
+
+String.prototype.strDMYtoDate = function () {
+  const tab = this.split("-");
+  const d = tab[0];
+  const m = tab[1] - 1;
+  const y = tab[2];
+  const print = new Date(y, m, d);
+  return print;
+};

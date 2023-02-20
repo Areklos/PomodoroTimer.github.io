@@ -93,6 +93,7 @@ class Beam {
     const minutesLeftOffset = startPrint.getMinutes() + startPrint.getHours() * 60 - eightHour;
     const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
     const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
+    console.log(pxnaMin * 25);
     const leftOffset = minutesLeftOffset * pxnaMin;
     const beamSymbol = document.createElement("div");
     beamSymbol.classList.add("beam");
@@ -109,6 +110,20 @@ class Beam {
     return beamToolTip;
   }
 
+  // zmieniamy aktualny dzien o jeden wcześniej lub pózniej
+  changeDay(dayDMY, sign) {
+    const dayToChange = dayDMY.strDMYtoDate();
+    let newActiveDay;
+    if (sign === "-") {
+      newActiveDay = new Date(dayToChange.setDate(dayToChange.getDate() - 1)).displayDMY();
+    } else if (sign === "+") {
+      newActiveDay = new Date(dayToChange.setDate(dayToChange.getDate() + 1)).displayDMY();
+    } else {
+      console.log(`\x1b[41m ERROR: błednny znak przy funkcji "beam.changeDay"`);
+    }
+    this.render(newActiveDay);
+    return newActiveDay;
+  }
   // w forEach rysujemy wszystkie fasolki które były w bazie danych
   //   printAllBeams() {
   //   this.allBeams.forEach((e, i) => {

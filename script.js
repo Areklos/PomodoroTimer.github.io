@@ -195,7 +195,7 @@ function minusOneMinute() {
 //############################# Rysowanei fasolek  #########################################################
 
 const beam = new Beam();
-beam.render();
+beam.render(displayActiveDay.textContent);
 // beam.printAllBeams();
 
 // function startBeam() {
@@ -236,9 +236,16 @@ minusTime.addEventListener("click", minusOneMinute);
 btnDailyStatic.addEventListener("click", changeSizeWindowTime);
 btnYesterday.addEventListener("click", () => {
   console.log("klik wczoraj");
+
+  const activeDay = "19-02-2023";
+  displayActiveDay.textContent = activeDay;
+  beam.render(activeDay);
 });
 btnTommorow.addEventListener("click", () => {
   console.log("klik jutro");
+  const activeDay = "20-02-2023";
+  displayActiveDay.textContent = activeDay;
+  beam.render(activeDay);
 });
 
 //#####################  DODATKOWE ANIMACJE  ############################

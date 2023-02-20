@@ -4,8 +4,8 @@ class Beam {
   constructor() {
     this.key = "beams";
     this.allBeams = JSON.parse(localStorage.getItem(this.key)) || [];
-    this.dayToRender = new Date();
-    this.dayToRender = this.dayToRender.displayDMY();
+    // this.dayToRender = new Date();
+    // this.dayToRender = this.dayToRender.displayDMY();
 
     // this.allBeams = [];
 
@@ -36,12 +36,13 @@ class Beam {
     selectedDay.beams.push(this.newBeam(actuallyDayId, start));
 
     // this.saveToLocalStorage();
-    this.render();
+    this.render(activeDay);
   }
 
   // Po kliknięciu w ToolTipie na usuń usuwamy daną fasolkę
   removeBeam(idToRemove) {
-    const activeDay = this.dayToRender;
+    const activeDay = displayActiveDay.textContent;
+    console.log("🚀 aaaaa activeDay", activeDay);
     const selectedDay = this.allBeams.filter((e) => e.day === activeDay)[0]; //szukamy dni z którego bedziemy usuwać fasolke
     if (idToRemove === "last") {
       idToRemove = selectedDay.beams.length;
@@ -57,14 +58,14 @@ class Beam {
 
     console.log("ostatecznie", this.allBeams);
     // this.saveToLocalStorage();
-    this.render();
+    this.render(activeDay);
   }
 
   //usuwamy wszystkie fasolki i renderujemy je wszystkie od nowa
-  render() {
+  render(activeDay) {
     console.log("f RENDER");
     this.clearBeams();
-    this.renderBeams();
+    this.renderBeams(activeDay);
   }
 
   // Usuwanie wszystkich fasolek
@@ -75,12 +76,13 @@ class Beam {
   }
 
   // Renderowanie wszystkich fasolek
-  renderBeams() {
-    let selectedDay = this.allBeams.find((e) => e.day === this.dayToRender);
+  renderBeams(activeDay) {
+    let selectedDay = this.allBeams.find((e) => e.day === activeDay);
+    console.log("🚀  Beam  activeDay", activeDay);
     console.log("🚀  Beam  selectedDay", selectedDay);
     selectedDay.beams.forEach((e, i) => {
       const startPrint = new Date(e.start); // przez JSON mamy stringa a nie date
-      console.log(`\x1B[34m Fasolka id: ${e.id} - ${startPrint.displayHMS()}`);
+      console.log(`\x1B[34m Fasolka id:\x1B[33m ${e.id} - ${startPrint.displayHMS()} \x1B[34m ${activeDay}`);
       beamsDiv.appendChild(this.createBeamSymbol(startPrint));
     });
   }

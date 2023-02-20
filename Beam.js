@@ -35,7 +35,7 @@ class Beam {
     actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
     selectedDay.beams.push(this.newBeam(actuallyDayId, start));
 
-    // this.saveToLocalStorage();
+    this.saveToLocalStorage();
     this.render(activeDay);
   }
 
@@ -57,7 +57,7 @@ class Beam {
     this.allBeams.filter((e) => e.day === activeDay)[0].beams = newBeams; // podmienimay stara tablice na nowa, juz bez usunietej fasolki i z nowymi ID
 
     console.log("ostatecznie", this.allBeams);
-    // this.saveToLocalStorage();
+    this.saveToLocalStorage();
     this.render(activeDay);
   }
 

@@ -1,16 +1,23 @@
+//Buttony
+const plusTime = document.querySelector(".plusTime");
+const minusTime = document.querySelector(".minusTime");
 const buttonStartDiv = document.querySelector(".buttonStartDiv");
+const btnYesterday = document.querySelector(".aboveTimeLine .setYesterday");
+const btnTommorow = document.querySelector(".aboveTimeLine .setTomorrow");
+const btnDailyStatic = document.querySelector(".btnDailyStatic");
+
+//upperWindowTime
 const startTimeBTN = document.querySelector(".startTimeBTN");
 const actualMin = document.querySelector(".actualMin");
 const actualSek = document.querySelector(".actualSek");
 const iconPause = document.querySelector(".iconPause");
-const plusTime = document.querySelector(".plusTime");
-const minusTime = document.querySelector(".minusTime");
 const barOutside = document.querySelector(".barOutside");
 const barInside = document.querySelector(".barInside");
 const barProgres = document.querySelector(".barProgres");
-const btnDailyStatic = document.querySelector(".btnDailyStatic");
 const windowTime = document.querySelector(".windowTime");
 
+//lowerWindowTime
+const displayActiveDay = document.querySelector(".aboveTimeLine .timeLineToday");
 const svg = document.querySelector("svg");
 const timeLine = document.querySelector(".timeLine");
 const beamsDiv = document.querySelector(".beams");
@@ -227,6 +234,12 @@ startTimeBTN.addEventListener("click", startTimeDown);
 plusTime.addEventListener("click", addOneMinute);
 minusTime.addEventListener("click", minusOneMinute);
 btnDailyStatic.addEventListener("click", changeSizeWindowTime);
+btnYesterday.addEventListener("click", () => {
+  console.log("klik wczoraj");
+});
+btnTommorow.addEventListener("click", () => {
+  console.log("klik jutro");
+});
 
 //#####################  DODATKOWE ANIMACJE  ############################
 // animacja .ghost po nacisnieciu przycisku + lub -

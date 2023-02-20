@@ -294,18 +294,18 @@ span.actualSek {
   align-items: center;
   width: 100%;
 }
-.aboveTimeLine .TimeLineSetYesterday,
-.aboveTimeLine .TimeLineTomorrow {
+.aboveTimeLine .setYesterday,
+.aboveTimeLine .setTomorrow {
   cursor: pointer;
   color: #252525;
   transition: 0.3s;
 }
-.aboveTimeLine .TimeLineSetYesterday:hover,
-.aboveTimeLine .TimeLineTomorrow:hover {
+.aboveTimeLine .setYesterday:hover,
+.aboveTimeLine .setTomorrow:hover {
   color: #000;
   scale: 1.2;
 }
-.aboveTimeLine .TimeLineToday {
+.aboveTimeLine .timeLineToday {
   color: white;
   font-size: 1.2rem;
 }

@@ -4,6 +4,9 @@ class Beam {
   constructor() {
     this.key = "beams";
     this.allBeams = JSON.parse(localStorage.getItem(this.key)) || [];
+    this.dayToRender = new Date();
+    this.dayToRender = this.dayToRender.displayDMY();
+
     // this.allBeams = [];
 
     // this.allBeams = [
@@ -32,12 +35,34 @@ class Beam {
     actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
     selectedDay.beams.push(this.newBeam(actuallyDayId, start));
 
-    this.saveToLocalStorage();
+    // this.saveToLocalStorage();
+    this.render();
+  }
+
+  // Po kliknięciu w ToolTipie na usuń usuwamy daną fasolkę
+  removeBeam(idToRemove) {
+    const activeDay = this.dayToRender;
+    const selectedDay = this.allBeams.filter((e) => e.day === activeDay)[0]; //szukamy dni z którego bedziemy usuwać fasolke
+    if (idToRemove === "last") {
+      idToRemove = selectedDay.beams.length;
+      console.log("🚀  Beam  idToRemove", idToRemove);
+    }
+    console.log("🚀  Beam  selectedDay", selectedDay);
+    const ccc = selectedDay.beams;
+    console.log("🚀  Beam  ccc", ccc);
+    const newBeams = selectedDay.beams.filter((e) => e.id !== idToRemove); // zwracamy tablcie bez usuniętej fasolki
+    console.log("🚀  Beam  newBeams", newBeams);
+    newBeams.map((e, i) => (e.id = i + 1)); // numerujemy ID fasolek od nowa
+    this.allBeams.filter((e) => e.day === activeDay)[0].beams = newBeams; // podmienimay stara tablice na nowa, juz bez usunietej fasolki i z nowymi ID
+
+    console.log("ostatecznie", this.allBeams);
+    // this.saveToLocalStorage();
     this.render();
   }
 
   //usuwamy wszystkie fasolki i renderujemy je wszystkie od nowa
   render() {
+    console.log("f RENDER");
     this.clearBeams();
     this.renderBeams();
   }
@@ -51,12 +76,11 @@ class Beam {
 
   // Renderowanie wszystkich fasolek
   renderBeams() {
-    const DayToRender = "19-02-2023";
-    let selectedDay = this.allBeams.find((e) => e.day === DayToRender);
+    let selectedDay = this.allBeams.find((e) => e.day === this.dayToRender);
     console.log("🚀  Beam  selectedDay", selectedDay);
     selectedDay.beams.forEach((e, i) => {
       const startPrint = new Date(e.start); // przez JSON mamy stringa a nie date
-      console.log(`\x1B[34m Fasolka nr: ${i} - ${startPrint.displayHMS()}`);
+      console.log(`\x1B[34m Fasolka id: ${e.id} - ${startPrint.displayHMS()}`);
       beamsDiv.appendChild(this.createBeamSymbol(startPrint));
     });
   }

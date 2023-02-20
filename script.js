@@ -100,6 +100,8 @@ function resetTime() {
   pauseTimeBTN.removeEventListener("click", pauseTime);
   barProgres.style.width = countBarProgres(25, 0);
   timerRemoveResetBTN = setTimeout(removeResetBTN, 500); // uruchamiamy odliczanie czasu animacji resetu
+  beam.removeBeam("last");
+
   // stopBeam();
 }
 

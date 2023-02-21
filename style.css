@@ -234,7 +234,7 @@ span.actualSek {
 }
 .minusTime {
   animation: minusTimeMove 1s both;
-  line-height: 27px;
+  line-height: 30px;
 }
 .plusTime {
   animation: plusTimeMove 1s both;
@@ -469,7 +469,7 @@ span.actualSek {
   100% {
     transform: translate(-50%);
     scale: 1;
-    left: 100px;
+    left: -101px;
   }
 }
 @keyframes plusTimeMove {
@@ -493,7 +493,7 @@ span.actualSek {
   }
   100% {
     scale: 1;
-    left: -101px;
+    left: 100px;
   }
 }
 

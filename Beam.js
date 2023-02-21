@@ -170,7 +170,7 @@ class Beam {
     }
   }
 
-  // narazie tylkoaktywacja BTN Nex day, ponieważ nie mam ustawionego minaimalnego dnia
+  // narazie tylko aktywacja BTN Nex day, ponieważ nie mam ustawionego minaimalnego dnia
   disactivateBTNPreviousDay(activeDay) {
     activeDay = activeDay.strDMYtoDate();
     const maxDay = new Date().displayDMY().strDMYtoDate(); // obcinamy godziny, min, sek, ms

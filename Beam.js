@@ -78,6 +78,7 @@ class Beam {
   // Renderowanie wszystkich fasolek
   renderBeams(activeDay) {
     let selectedDay = this.allBeams.find((e) => e.day === activeDay);
+    if (!selectedDay) return; // przy starcie Local Storage może być puste, dlatego wycodziym z funkcji
     console.log("🚀  Beam  activeDay", activeDay);
     console.log("🚀  Beam  selectedDay", selectedDay);
     selectedDay.beams.forEach((e, i) => {
@@ -93,7 +94,6 @@ class Beam {
     const minutesLeftOffset = startPrint.getMinutes() + startPrint.getHours() * 60 - eightHour;
     const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
     const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
-    console.log(pxnaMin * 25);
     const leftOffset = minutesLeftOffset * pxnaMin;
     const beamSymbol = document.createElement("div");
     beamSymbol.classList.add("beam");
@@ -124,34 +124,6 @@ class Beam {
     this.render(newActiveDay);
     return newActiveDay;
   }
-  // w forEach rysujemy wszystkie fasolki które były w bazie danych
-  //   printAllBeams() {
-  //   this.allBeams.forEach((e, i) => {
-  //     this.printBeam(i);
-  //   });
-  // }
-
-  // Rysujemy na timeline jedną fasolke
-  // printBeam(i) {
-  //   const beam = this.allBeams[i];
-  //   const startPrint = new Date(beam.start); // przez JSON mamy stringa a nie date
-  //   console.log(`\x1B[34m Fasolka nr: ${i} - ${startPrint.displayHMS()}`);
-  //   const eightHour = 8 * 60;
-  //   const minutesLeftOffset = startPrint.getMinutes() + startPrint.getHours() * 60 - eightHour;
-  //   const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
-  //   const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
-  //   const leftOffset = minutesLeftOffset * pxnaMin;
-
-  //   const beamSymbol = document.createElement("div");
-  //   beamSymbol.classList.add("beam");
-  //   beamSymbol.style.left = leftOffset + "px";
-  //   beamsDiv.appendChild(beamSymbol);
-
-  //   const beamTooltip = document.createElement("div");
-  //   beamTooltip.textContent = `start: ${startPrint.displayHM()}`;
-  //   beamTooltip.classList.add("beamTooltip");
-  //   beamSymbol.appendChild(beamTooltip);
-  // }
 
   newBeam(id, start) {
     return { id, start, stop: "-", status: "active" };

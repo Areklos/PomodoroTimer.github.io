@@ -195,39 +195,8 @@ function minusOneMinute() {
 //############################# Rysowanei fasolek  #########################################################
 
 const beam = new Beam();
+displayActiveDay.textContent = new Date().displayDMY();
 beam.render(displayActiveDay.textContent);
-// beam.printAllBeams();
-
-// function startBeam() {
-//   beam11.startTime = new Date();
-// }
-
-// function stopBeam() {
-//   beam11.stopTime = new Date();
-//   beam11.duration = beam11.stopTime - beam11.startTime;
-//   // beam11.startTime.setHours(8);
-
-//   const eightHour = 8 * 60;
-//   const minutesLeftOffset = beam11.stopTime.getMinutes() + beam11.stopTime.getHours() * 60 - eightHour;
-
-//   console.log(`startTime ${beam11.startTime.hms()}`);
-//   console.log("🚀  stopTime", beam11.stopTime.hms());
-//   console.log("🚀  minutesLeftOffset", minutesLeftOffset);
-
-//   let beam11div = document.createElement("div");
-//   beam11div.classList.add("beam11");
-//   timeLine.appendChild(beam11div);
-
-//   const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
-//   const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
-
-//   const leftOffset = minutesLeftOffset * pxnaMin;
-//   document.documentElement.style.setProperty("--beamLeft", leftOffset + "px");
-// }
-
-// beam11.prototype.hms = function () {
-//   console.log(this.getHours());
-// };
 
 //######################  Listener ##################################
 startTimeBTN.addEventListener("click", startTimeDown);

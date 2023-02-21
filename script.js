@@ -68,9 +68,6 @@ function pauseTime() {
   pauseTimeBTN.addEventListener("click", resumeTime);
   iconPause.classList.toggle("show");
   clearInterval(timerDown);
-  // iconPause.style.scale = 1; // pokazanie DiV
-  // pauseTimeBTN.replaceWith(startTimeBTN);
-  // startTimeBTN.addEventListener("click", startTimeDown);
 }
 
 function resumeTime() {
@@ -82,19 +79,18 @@ function resumeTime() {
   pauseTimeBTN.addEventListener("click", pauseTime);
 }
 
+// kkliknięcie przycisku reset
 function resetTime() {
   console.log("klik resetTime");
   resetDisplayTime();
-  pauseTimeBTN.removeEventListener("click", resumeTime);
-  pauseTimeBTN.removeEventListener("click", pauseTime);
-  timerRemoveResetBTN = setTimeout(removeResetBTN, 500); // uruchamiamy odliczanie czasu animacji resetu
   beam.removeBeam("last");
-
-  // stopBeam();
 }
 
+// reset timera i menu w przypadku: konca czasu luk kliknięcia przycisku reset
 function resetDisplayTime() {
-  removeResetBTN();
+  timerRemoveResetBTN = setTimeout(removeResetBTN, 500); // uruchamiamy odliczanie czasu animacji resetu
+  pauseTimeBTN.removeEventListener("click", resumeTime);
+  pauseTimeBTN.removeEventListener("click", pauseTime);
   clearInterval(timerDown);
   actualMin.textContent = "25";
   actualSek.textContent = "00";

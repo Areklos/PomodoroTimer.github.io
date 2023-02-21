@@ -154,4 +154,30 @@ class Beam {
   readLS() {
     console.log(JSON.parse(localStorage.getItem(beam.key)));
   }
+
+  // Dezaktywujemy przycisk NEXDAY gdy data jest >+ od dziesiejszej
+  disactivateBTNNextDay(activeDay) {
+    activeDay = activeDay.strDMYtoDate();
+    const maxDay = new Date().displayDMY().strDMYtoDate(); // obcinamy godziny, min, sek, ms
+    if (activeDay >= maxDay) {
+      console.log("dezaktywacja BTN next Day");
+      btnNextDay.classList.add("deactivate");
+      btnNextDay.removeEventListener("click", setNextDayTimeLine);
+    } else if (activeDay < maxDay && btnNextDay.classList.contains("deactivate")) {
+      console.log("aktywacja BTN Next Day");
+      btnNextDay.classList.remove("deactivate");
+      btnNextDay.addEventListener("click", setNextDayTimeLine);
+    }
+  }
+
+  // narazie tylkoaktywacja BTN Nex day, ponieważ nie mam ustawionego minaimalnego dnia
+  disactivateBTNPreviousDay(activeDay) {
+    activeDay = activeDay.strDMYtoDate();
+    const maxDay = new Date().displayDMY().strDMYtoDate(); // obcinamy godziny, min, sek, ms
+    if (activeDay < maxDay && btnNextDay.classList.contains("deactivate")) {
+      console.log("aktywacja BTN Next Day");
+      btnNextDay.classList.remove("deactivate");
+      btnNextDay.addEventListener("click", setNextDayTimeLine);
+    }
+  }
 }

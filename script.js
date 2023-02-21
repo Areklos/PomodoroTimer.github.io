@@ -2,8 +2,8 @@
 const plusTime = document.querySelector(".plusTime");
 const minusTime = document.querySelector(".minusTime");
 const buttonStartDiv = document.querySelector(".buttonStartDiv");
-const btnYesterday = document.querySelector(".aboveTimeLine .setYesterday");
-const btnTommorow = document.querySelector(".aboveTimeLine .setTomorrow");
+const btnPreviousDay = document.querySelector(".aboveTimeLine .setPreviousDay");
+const btnNextDay = document.querySelector(".aboveTimeLine .setNexDay");
 const btnDailyStatic = document.querySelector(".btnDailyStatic");
 
 //upperWindowTime
@@ -31,19 +31,6 @@ const resetBTN = document.createElement("button");
 resetBTN.textContent = "Reset";
 resetBTN.className = "resetBTN";
 
-const beam11 = {
-  startTime: "as",
-  stopTime: false,
-};
-
-// class BeamC {
-//   start = new Date();
-//   stop = 0;
-//   hms = function () {
-//     console.log(this.getHours());
-//   };
-// }
-
 let timerDown; // dekramentacja minutnika
 let timerRemoveResetBTN; // opóznienie uruchomienia funkcji removeResetBTN()
 
@@ -65,8 +52,6 @@ if (Notification.permission === "granted") {
 // po kliknięciu na przycisk start podmieniamy przycisk "start" na przycisk "pauza"
 function startTimeDown() {
   console.log("klik startTimeDown");
-  // buttonStartDiv.appendChild(pauseTimeBTN);   //też działą ale "repalceWith" jest krótsze
-  // startTimeBTN.remove();
   startTimeBTN.replaceWith(pauseTimeBTN);
   pauseTimeBTN.addEventListener("click", pauseTime);
   timerDown = setInterval(timeDown, 1000); // uruchamiamy odliczanie czasu
@@ -99,17 +84,22 @@ function resumeTime() {
 
 function resetTime() {
   console.log("klik resetTime");
-  clearInterval(timerDown);
-  actualMin.textContent = "25";
-  actualSek.textContent = "00";
-  resetBTN.classList.add("resetBTN0ff");
+  resetDisplayTime();
   pauseTimeBTN.removeEventListener("click", resumeTime);
   pauseTimeBTN.removeEventListener("click", pauseTime);
-  barProgres.style.width = countBarProgres(25, 0);
   timerRemoveResetBTN = setTimeout(removeResetBTN, 500); // uruchamiamy odliczanie czasu animacji resetu
   beam.removeBeam("last");
 
   // stopBeam();
+}
+
+function resetDisplayTime() {
+  removeResetBTN();
+  clearInterval(timerDown);
+  actualMin.textContent = "25";
+  actualSek.textContent = "00";
+  resetBTN.classList.add("resetBTN0ff");
+  barProgres.style.width = countBarProgres(25, 0);
 }
 
 function removeResetBTN() {
@@ -150,9 +140,9 @@ function timeDown() {
 }
 function timeIsUp() {
   console.log(" czas miną, skończłeś naukę");
-  clearInterval(timerDown);
   new Audio("/sound/a.wav").play();
   new Notification("Koniec nauki", { icon: "timeIcon.png" });
+  resetDisplayTime();
 }
 
 function left3Min() {
@@ -191,7 +181,22 @@ function minusOneMinute() {
     actualMin.textContent = m;
   }
 }
+//#####################  Zmiana dni wyświetlania histori na TimeLine  ####################
+function setNextDayTimeLine() {
+  console.log("\x1b[32m** klik jutro  **");
+  const activeDay = displayActiveDay.textContent;
+  const newActiveDay = beam.changeDay(activeDay, "+");
+  displayActiveDay.textContent = newActiveDay;
+  beam.disactivateBTNNextDay(newActiveDay);
+}
 
+function setPreviousDayTimeLine() {
+  console.log("\x1b[32m** klik wczoraj **");
+  const activeDay = displayActiveDay.textContent;
+  const newActiveDay = beam.changeDay(activeDay, "-");
+  displayActiveDay.textContent = newActiveDay;
+  beam.disactivateBTNPreviousDay(newActiveDay);
+}
 //############################# Rysowanei fasolek  #########################################################
 
 const beam = new Beam();
@@ -204,19 +209,8 @@ plusTime.addEventListener("click", addOneMinute);
 minusTime.addEventListener("click", minusOneMinute);
 btnDailyStatic.addEventListener("click", changeSizeWindowTime);
 
-btnYesterday.addEventListener("click", () => {
-  console.log("\x1b[32m** klik wczoraj **");
-  const activeDay = displayActiveDay.textContent;
-  const newActiveDay = beam.changeDay(activeDay, "-");
-  displayActiveDay.textContent = newActiveDay;
-});
-
-btnTommorow.addEventListener("click", () => {
-  console.log("\x1b[32m** klik jutro  **");
-  const activeDay = displayActiveDay.textContent;
-  const newActiveDay = beam.changeDay(activeDay, "+");
-  displayActiveDay.textContent = newActiveDay;
-});
+btnNextDay.addEventListener("click", setNextDayTimeLine);
+btnPreviousDay.addEventListener("click", setPreviousDayTimeLine);
 
 //#####################  DODATKOWE ANIMACJE  ############################
 // animacja .ghost po nacisnieciu przycisku + lub -

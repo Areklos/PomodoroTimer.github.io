@@ -295,18 +295,30 @@ span.actualSek {
   align-items: center;
   width: 100%;
 }
-.aboveTimeLine .setYesterday,
-.aboveTimeLine .setTomorrow {
+.aboveTimeLine .setPreviousDay,
+.aboveTimeLine .setNexDay {
   cursor: pointer;
   width: 70px;
   color: var(--colorOrnage);
   transition: 0.3s;
   font-weight: 450;
 }
-.aboveTimeLine .setYesterday:hover,
-.aboveTimeLine .setTomorrow:hover {
+.aboveTimeLine .setPreviousDay:hover,
+.aboveTimeLine .setNexDay:hover {
   color: #000;
   scale: 1.1;
+}
+
+.aboveTimeLine .deactivate {
+  cursor: not-allowed;
+  color: #a5a5a5;
+  font-weight: 450;
+}
+
+.aboveTimeLine .setPreviousDay.deactivate:hover,
+.aboveTimeLine .setNexDay.deactivate:hover {
+  color: #a5a5a5;
+  scale: 1;
 }
 .aboveTimeLine .timeLineToday {
   color: white;

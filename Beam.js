@@ -23,17 +23,18 @@ class Beam {
   // po kliknieciu przycisku "start nauki" tworzymy nową fasolke z datą poczatku i rysujemy na timeline
   addBeam(start) {
     const activeDay = start.displayDMY();
+    console.log("🚀  Beam  activeDay:", activeDay);
     let actuallyDayId = 0;
     let selectedDay = this.allBeams.find((e) => e.day === activeDay);
     console.log("🚀  selectedDay", selectedDay);
     if (!selectedDay) {
       console.log("Pierwszy wpis w tym dniu");
-      this.allBeams.push(this.newDay(activeDay));
+      this.allBeams.push(this.newDay(activeDay)); // dd-mm-yyyy
       selectedDay = this.allBeams.find((e) => e.day === activeDay);
       actuallyDayId = 1;
     }
     actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
-    selectedDay.beams.push(this.newBeam(actuallyDayId, start));
+    selectedDay.beams.push(this.newBeam(actuallyDayId, start.displayHM()));
 
     this.saveToLocalStorage();
     this.render(activeDay);
@@ -63,7 +64,7 @@ class Beam {
 
   //usuwamy wszystkie fasolki i renderujemy je wszystkie od nowa
   render(activeDay) {
-    console.log("f RENDER");
+    console.log("---f RENDER---");
     this.clearBeams();
     this.renderBeams(activeDay);
   }
@@ -79,25 +80,20 @@ class Beam {
   renderBeams(activeDay) {
     let selectedDay = this.allBeams.find((e) => e.day === activeDay);
     if (!selectedDay) return; // przy starcie Local Storage może być puste, dlatego wycodziym z funkcji
-    console.log("🚀  Beam  activeDay", activeDay);
-    console.log("🚀  Beam  selectedDay", selectedDay);
+    console.log("---f activeDay", activeDay);
+    console.log("---f Beam  selectedDay", selectedDay);
     selectedDay.beams.forEach((e, i) => {
-      const startPrint = new Date(e.start); // przez JSON mamy stringa a nie date
-      console.log(`\x1B[34m Fasolka id:\x1B[33m ${e.id} - ${startPrint.displayHMS()} \x1B[34m ${activeDay}`);
-      beamsDiv.appendChild(this.createBeamSymbol(startPrint));
+      // const startPrint = new Date(e.start); // przez JSON mamy stringa a nie date
+      console.log(`\x1B[34m Fasolka id:\x1B[33m ${e.id} - ${e.start} \x1B[34m ${activeDay}`);
+      beamsDiv.appendChild(this.createBeamSymbol(e.start));
     });
   }
 
   // Tworzymy DIVa jednej fasolki
   createBeamSymbol(startPrint) {
-    const eightHour = 8 * 60;
-    const minutesLeftOffset = startPrint.getMinutes() + startPrint.getHours() * 60 - eightHour;
-    const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
-    const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
-    const leftOffset = minutesLeftOffset * pxnaMin;
     const beamSymbol = document.createElement("div");
     beamSymbol.classList.add("beam");
-    beamSymbol.style.left = leftOffset + "px";
+    beamSymbol.style.left = this.leftOffset(startPrint) + "px";
     beamSymbol.appendChild(this.createBeamToolTip(startPrint));
     return beamSymbol;
   }
@@ -105,7 +101,7 @@ class Beam {
   // Dodajemy ToolTipa do DIVa stworzonej fasolki
   createBeamToolTip(startPrint) {
     const beamToolTip = document.createElement("div");
-    beamToolTip.textContent = `start: ${startPrint.displayHM()}`;
+    beamToolTip.textContent = `start: ${startPrint}`;
     beamToolTip.classList.add("beamToolTip");
     return beamToolTip;
   }
@@ -126,6 +122,8 @@ class Beam {
   }
 
   newBeam(id, start) {
+    console.log("🚀  -----Beam  start:", start);
+
     return { id, start, stop: "-", status: "active" };
   }
 
@@ -179,5 +177,35 @@ class Beam {
       btnNextDay.classList.remove("deactivate");
       btnNextDay.addEventListener("click", setNextDayTimeLine);
     }
+  }
+
+  // dodajemy fasolke ręcznie w danym dniu w postaci hh:mm
+  addManuallyBeam(start) {
+    const activeDay = displayActiveDay.textContent;
+    console.log("---f AddManualy activeDay:", activeDay);
+    let actuallyDayId = 0;
+    let selectedDay = this.allBeams.find((e) => e.day === activeDay);
+    console.log("---f AddManualy selectedDay", selectedDay);
+    if (!selectedDay) {
+      console.log("Pierwszy wpis w tym dniu");
+      this.allBeams.push(this.newDay(activeDay)); // dd-mm-yyyy
+      selectedDay = this.allBeams.find((e) => e.day === activeDay);
+      actuallyDayId = 1;
+    }
+    actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
+    selectedDay.beams.push(this.newBeam(actuallyDayId, start));
+
+    this.saveToLocalStorage();
+    this.render(activeDay);
+  }
+
+  // odległość w jakiej ma narysować sie fasolka
+  leftOffset(startPrint) {
+    const eightHour = 8 * 60;
+    const minutesLeftOffset = Number(startPrint.slice(3)) + Number(startPrint.slice(0, 2)) * 60 - eightHour;
+    const widthTimeLine = document.querySelector(".hourLabel").clientWidth;
+    const pxnaMin = widthTimeLine / (12 * 60); //ile px zajmuje jedna minuta na Timeline
+    const leftOffset = minutesLeftOffset * pxnaMin;
+    return leftOffset;
   }
 }

@@ -111,11 +111,22 @@ function removeResetBTN() {
 
 function changeSizeWindowTime() {
   if (windowTime.classList.contains("increaseSizeWindowTime")) {
+    console.log("decrease");
     windowTime.classList.remove("increaseSizeWindowTime");
     windowTime.classList.add("decreaseSizeWindowTime");
+    // btnDailyStatic.lastElementChild.classList.remove("arrowDownIncrease");
+    btnDailyStatic.classList.remove("upDown");
+    btnDailyStatic.classList.add("downUp");
+    btnDailyStatic.firstElementChild.classList.remove("fa-angles-up");
+    btnDailyStatic.firstElementChild.classList.add("fa-angles-down");
   } else {
+    console.log("increase");
     windowTime.classList.add("increaseSizeWindowTime");
     windowTime.classList.remove("decreaseSizeWindowTime");
+    btnDailyStatic.classList.add("upDown");
+    btnDailyStatic.classList.remove("downUp");
+    btnDailyStatic.firstElementChild.classList.remove("fa-angles-down");
+    btnDailyStatic.firstElementChild.classList.add("fa-angles-up");
   }
 }
 

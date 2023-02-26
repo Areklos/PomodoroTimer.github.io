@@ -89,13 +89,14 @@ class Beam {
         beamsDiv.lastChild.classList.add("active"); // dodanie pulsacji na aktywną fasolkę
       }
     });
+    this.renderDayStatistic(selectedDay);
   }
 
   renderDayStatistic(selectedDay) {
-    selectedDay;
+    const amountBeamsFilter = selectedDay.beams.filter((e) => e.status === "-").length;
 
-    amountBeams.textContent = "2";
-    sumTimeBeams.textContent = "3" + "h";
+    amountBeams.textContent = amountBeamsFilter;
+    sumTimeBeams.textContent = amountBeamsFilter * 0.5 + " h";
   }
 
   disactivateBeamPulse() {

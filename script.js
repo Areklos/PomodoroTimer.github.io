@@ -96,6 +96,7 @@ function resetDisplayTime() {
   actualSek.textContent = "00";
   resetBTN.classList.add("resetBTN0ff");
   barProgres.style.width = countBarProgres(25, 0);
+  beam.disactivateBeamPulse();
 }
 
 function removeResetBTN() {

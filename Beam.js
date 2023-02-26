@@ -35,7 +35,6 @@ class Beam {
     }
     actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
     selectedDay.beams.push(this.newBeam(actuallyDayId, start.displayHM()));
-
     this.saveToLocalStorage();
     this.render(activeDay);
   }
@@ -86,7 +85,20 @@ class Beam {
       // const startPrint = new Date(e.start); // przez JSON mamy stringa a nie date
       console.log(`\x1B[34m Fasolka id:\x1B[33m ${e.id} - ${e.start} \x1B[34m ${activeDay}`);
       beamsDiv.appendChild(this.createBeamSymbol(e.start));
+      if (e.status === "active") {
+        beamsDiv.lastChild.classList.add("active"); // dodanie pulsacji na aktywną fasolkę
+      }
     });
+  }
+
+  disactivateBeamPulse() {
+    const activeDay = new Date().displayDMY();
+    console.log("🚀  Beam  activeDay:", activeDay);
+    const selectedDay = this.allBeams.find((e) => e.day === activeDay);
+    console.log("🚀  Beam  selectedDay:", selectedDay);
+    selectedDay.beams.at(-1).status = "-";
+    this.saveToLocalStorage();
+    this.render(activeDay);
   }
 
   // Tworzymy DIVa jednej fasolki
@@ -121,10 +133,9 @@ class Beam {
     return newActiveDay;
   }
 
-  newBeam(id, start) {
+  newBeam(id, start, status = "active") {
     console.log("🚀  -----Beam  start:", start);
-
-    return { id, start, stop: "-", status: "active" };
+    return { id, start, stop: "-", status };
   }
 
   newDay(day) {
@@ -193,7 +204,7 @@ class Beam {
       actuallyDayId = 1;
     }
     actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
-    selectedDay.beams.push(this.newBeam(actuallyDayId, start));
+    selectedDay.beams.push(this.newBeam(actuallyDayId, start, "-"));
 
     this.saveToLocalStorage();
     this.render(activeDay);

@@ -91,6 +91,13 @@ class Beam {
     });
   }
 
+  renderDayStatistic(selectedDay) {
+    selectedDay;
+
+    amountBeams.textContent = "2";
+    sumTimeBeams.textContent = "3" + "h";
+  }
+
   disactivateBeamPulse() {
     const activeDay = new Date().displayDMY();
     console.log("🚀  Beam  activeDay:", activeDay);

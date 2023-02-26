@@ -21,6 +21,8 @@ const displayActiveDay = document.querySelector(".aboveTimeLine .timeLineToday")
 const svg = document.querySelector("svg");
 const timeLine = document.querySelector(".timeLine");
 const beamsDiv = document.querySelector(".beams");
+const amountBeams = document.querySelector(".amountBeams");
+const sumTimeBeams = document.querySelector(".sumTimeBeams");
 
 const pauseTimeBTN = document.createElement("button");
 pauseTimeBTN.textContent = "Pauza";

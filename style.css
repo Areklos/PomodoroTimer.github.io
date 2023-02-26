@@ -574,6 +574,22 @@ span.ghost {
   /* border: 3px solid white; */
 }
 
+.active {
+  animation: pulseBeam 2s linear infinite;
+}
+
+@keyframes pulseBeam {
+  0% {
+    scale: 0.8;
+  }
+  50% {
+    scale: 1.3;
+  }
+  100% {
+    scale: 0.8;
+  }
+}
+
 .beamToolTip {
   position: absolute;
   top: -45px;

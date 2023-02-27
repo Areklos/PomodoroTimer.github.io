@@ -78,23 +78,28 @@ class Beam {
   // Renderowanie wszystkich fasolek
   renderBeams(activeDay) {
     let selectedDay = this.allBeams.find((e) => e.day === activeDay);
-    if (!selectedDay) return; // przy starcie Local Storage może być puste, dlatego wycodziym z funkcji
+    this.renderDayStatistic(activeDay);
+    if (!selectedDay) return; // przy starcie Local Storage może być puste, dlatego wycodziym z funkcji, lub W LS nie ma nic w danym dniu
     console.log("---f activeDay", activeDay);
     console.log("---f Beam  selectedDay", selectedDay);
     selectedDay.beams.forEach((e, i) => {
-      // const startPrint = new Date(e.start); // przez JSON mamy stringa a nie date
       console.log(`\x1B[34m Fasolka id:\x1B[33m ${e.id} - ${e.start} \x1B[34m ${activeDay}`);
       beamsDiv.appendChild(this.createBeamSymbol(e.start));
       if (e.status === "active") {
         beamsDiv.lastChild.classList.add("active"); // dodanie pulsacji na aktywną fasolkę
       }
     });
-    this.renderDayStatistic(selectedDay);
   }
 
-  renderDayStatistic(selectedDay) {
-    const amountBeamsFilter = selectedDay.beams.filter((e) => e.status === "-").length;
-
+  renderDayStatistic(activeDay) {
+    const selectedDay = this.allBeams.find((e) => e.day === activeDay);
+    let amountBeamsFilter;
+    if (selectedDay) {
+      amountBeamsFilter = selectedDay.beams.filter((e) => e.status === "-").length;
+    } else {
+      amountBeamsFilter = 0;
+      console.log("Brak statystyk dziennych");
+    }
     amountBeams.textContent = amountBeamsFilter;
     sumTimeBeams.textContent = amountBeamsFilter * 0.5 + " h";
   }

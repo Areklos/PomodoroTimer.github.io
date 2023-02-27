@@ -114,7 +114,6 @@ function changeSizeWindowTime() {
     console.log("decrease");
     windowTime.classList.remove("increaseSizeWindowTime");
     windowTime.classList.add("decreaseSizeWindowTime");
-    // btnDailyStatic.lastElementChild.classList.remove("arrowDownIncrease");
     btnDailyStatic.classList.remove("upDown");
     btnDailyStatic.classList.add("downUp");
     btnDailyStatic.firstElementChild.classList.remove("fa-angles-up");

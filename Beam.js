@@ -33,6 +33,7 @@ class Beam {
       selectedDay = this.allBeams.find((e) => e.day === activeDay);
       actuallyDayId = 1;
     }
+    console.log("aID", actuallyDayId);
     actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
     selectedDay.beams.push(this.newBeam(actuallyDayId, start.displayHM()));
     this.saveToLocalStorage();

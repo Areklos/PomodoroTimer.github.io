@@ -1,5 +1,5 @@
 //Tworzenie fasolek na osi czasu
-console.log("\x1b[1mbeamC");
+// console.log("\x1b[1mbeamC");
 class Beam {
   constructor() {
     this.key = "beams";
@@ -23,17 +23,17 @@ class Beam {
   // po kliknieciu przycisku "start nauki" tworzymy nową fasolke z datą poczatku i rysujemy na timeline
   addBeam(start) {
     const activeDay = start.displayDMY();
-    console.log("🚀  Beam  activeDay:", activeDay);
+    console.log("f_addBeam activeDay:", activeDay);
     let actuallyDayId = 0;
     let selectedDay = this.allBeams.find((e) => e.day === activeDay);
-    console.log("🚀  selectedDay", selectedDay);
+    console.log("f_addBeam  selectedDay", selectedDay);
     if (!selectedDay) {
-      console.log("Pierwszy wpis w tym dniu");
+      console.log("f_addBeam Pierwszy wpis w tym dniu");
       this.allBeams.push(this.newDay(activeDay)); // dd-mm-yyyy
       selectedDay = this.allBeams.find((e) => e.day === activeDay);
       actuallyDayId = 1;
     }
-    console.log("aID", actuallyDayId);
+    console.log("f_addBeam aID", actuallyDayId);
     actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
     selectedDay.beams.push(this.newBeam(actuallyDayId, start.displayHM()));
     this.saveToLocalStorage();
@@ -42,22 +42,36 @@ class Beam {
 
   // Po kliknięciu w ToolTipie na usuń usuwamy daną fasolkę
   removeBeam(idToRemove) {
-    const activeDay = displayActiveDay.textContent;
-    console.log("🚀 aaaaa activeDay", activeDay);
-    const selectedDay = this.allBeams.filter((e) => e.day === activeDay)[0]; //szukamy dni z którego bedziemy usuwać fasolke
+    let activeDay;
+    let selectedDay;
     if (idToRemove === "last") {
+      activeDay = new Date().displayDMY();
+      console.log("f_removeBeam activeDay: LAST", activeDay);
+      selectedDay = this.allBeams.filter((e) => e.day === activeDay)[0]; //szukamy dni z którego bedziemy usuwać fasolke
       idToRemove = selectedDay.beams.length;
-      console.log("🚀  Beam  idToRemove", idToRemove);
+      console.log("f_removeBeam idToRemove", idToRemove);
+    } else {
+      activeDay = displayActiveDay.textContent;
+      console.log("f_removeBeam activeDay ELSE", activeDay);
+      selectedDay = this.allBeams.filter((e) => e.day === activeDay)[0]; //szukamy dni z którego bedziemy usuwać fasolke
     }
-    console.log("🚀  Beam  selectedDay", selectedDay);
-    const ccc = selectedDay.beams;
-    console.log("🚀  Beam  ccc", ccc);
+
+    console.log("f_removeBeam  selectedDay", selectedDay);
+
+    const dayBeforDelay = selectedDay.beams;
+    console.log("f_removeBeam dayBeforDelay", dayBeforDelay);
     const newBeams = selectedDay.beams.filter((e) => e.id !== idToRemove); // zwracamy tablcie bez usuniętej fasolki
-    console.log("🚀  Beam  newBeams", newBeams);
+    console.log("f_removeBeam Beam  newBeams day after delay", newBeams);
     newBeams.map((e, i) => (e.id = i + 1)); // numerujemy ID fasolek od nowa
     this.allBeams.filter((e) => e.day === activeDay)[0].beams = newBeams; // podmienimay stara tablice na nowa, juz bez usunietej fasolki i z nowymi ID
 
-    console.log("ostatecznie", this.allBeams);
+    const numBeamsInActiveDay = selectedDay.beams.length;
+    if (!numBeamsInActiveDay) {
+      console.log("f_removeBeam usuwamy dzien ponieważ nie ma w nim żadnych fasolek");
+      this.allBeams.pop();
+    }
+    console.log("f_removeBeam ostatecznie", this.allBeams);
+
     this.saveToLocalStorage();
     this.render(activeDay);
   }
@@ -217,6 +231,7 @@ class Beam {
       selectedDay = this.allBeams.find((e) => e.day === activeDay);
       actuallyDayId = 1;
     }
+
     actuallyDayId ? null : (actuallyDayId = 1 + selectedDay.beams[selectedDay.beams.length - 1].id);
     selectedDay.beams.push(this.newBeam(actuallyDayId, start, "-"));
 

@@ -53,7 +53,7 @@ if (Notification.permission === "granted") {
 //######################  Obsługa WindowTime  ##################
 // po kliknięciu na przycisk start podmieniamy przycisk "start" na przycisk "pauza"
 function startTimeDown() {
-  console.log("klik startTimeDown");
+  console.log("\x1B[31m  ---klik startTimeDown---");
   startTimeBTN.replaceWith(pauseTimeBTN);
   pauseTimeBTN.addEventListener("click", pauseTime);
   timerDown = setInterval(timeDown, 1000); // uruchamiamy odliczanie czasu
@@ -83,7 +83,7 @@ function resumeTime() {
 
 // kkliknięcie przycisku reset
 function resetTime() {
-  console.log("klik resetTime");
+  console.log("\x1B[31m  ---klik resetTime---");
   resetDisplayTime();
   beam.removeBeam("last");
 }

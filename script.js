@@ -60,11 +60,10 @@ function startTimeDown() {
   buttonStartDiv.appendChild(resetBTN);
   resetBTN.addEventListener("click", resetTime);
   beam.addBeam(new Date());
-  // startBeam();
 }
 
 function pauseTime() {
-  console.log("klik pauseTime");
+  console.log("\x1B[31m  ---klik pauseTime---");
   pauseTimeBTN.textContent = "Wznów";
   pauseTimeBTN.removeEventListener("click", pauseTime);
   pauseTimeBTN.addEventListener("click", resumeTime);
@@ -73,7 +72,7 @@ function pauseTime() {
 }
 
 function resumeTime() {
-  console.log("klik wznówTime");
+  console.log("\x1B[31m  ---klik wznówTime---");
   timerDown = setInterval(timeDown, 1000);
   pauseTimeBTN.textContent = "Pauza";
   iconPause.classList.toggle("show");
@@ -81,7 +80,6 @@ function resumeTime() {
   pauseTimeBTN.addEventListener("click", pauseTime);
 }
 
-// kkliknięcie przycisku reset
 function resetTime() {
   console.log("\x1B[31m  ---klik resetTime---");
   resetDisplayTime();
@@ -207,7 +205,6 @@ function setPreviousDayTimeLine() {
   beam.disactivateBTNPreviousDay(newActiveDay);
 }
 //############################# Rysowanei fasolek  #########################################################
-
 const beam = new Beam();
 displayActiveDay.textContent = new Date().displayDMY();
 beam.render(displayActiveDay.textContent);
@@ -224,8 +221,8 @@ btnPreviousDay.addEventListener("click", setPreviousDayTimeLine);
 //#####################  DODATKOWE ANIMACJE  ############################
 // animacja .ghost po nacisnieciu przycisku + lub -
 plusTime.addEventListener("click", function (e) {
-  console.log(`x ${e.clientX}, y${e.clientY}`);
-  console.log(`top ${e.target.getBoundingClientRect().top}, sY ${scrollY}`);
+  // console.log(`x ${e.clientX}, y${e.clientY}`);
+  // console.log(`top ${e.target.getBoundingClientRect().top}, sY ${scrollY}`);
   //pobieramy pozycje prostokąta obrysowanego
   let x = e.clientX - e.target.getBoundingClientRect().left;
   let y = e.clientY - e.target.getBoundingClientRect().top;
@@ -243,8 +240,8 @@ plusTime.addEventListener("click", function (e) {
 });
 
 minusTime.addEventListener("click", function (e) {
-  console.log(`x ${e.clientX}, y${e.clientY}`);
-  console.log(`top ${e.target.getBoundingClientRect().top}, sY ${scrollY}`);
+  // console.log(`x ${e.clientX}, y${e.clientY}`);
+  // console.log(`top ${e.target.getBoundingClientRect().top}, sY ${scrollY}`);
   //pobieramy pozycje prostokąta obrysowanego
   let x = e.clientX - e.target.getBoundingClientRect().left;
   let y = e.clientY - e.target.getBoundingClientRect().top;
@@ -260,33 +257,3 @@ minusTime.addEventListener("click", function (e) {
     document.querySelector(".ghost").remove();
   }, 500);
 });
-
-// const links = document.querySelectorAll("a");
-// links.forEach((btn) =>
-//   btn.addEventListener("click", function (e) {
-//     console.log(e.clientX + "x");
-//     console.log(e.clientY + "Y");
-
-//     console.log(e.target.offsetLeft + "left");
-//     console.log(e.target.offsetTop + "top");
-
-//     //   console.log(e.target);
-
-//     let x = e.clientX - e.target.offsetLeft;
-//     console.log(x);
-//     let y = e.clientY - e.target.offsetTop;
-//     console.log(y);
-
-//     const newSpan = document.createElement("span");
-//     newSpan.style.left = x + "px";
-//     newSpan.style.top = y + "px";
-//     this.appendChild(newSpan);
-//   })
-// );
-// barProgres.addEventListener("click", (e) => {
-//   let width = e.offsetX;
-//   console.log(width);
-// });
-
-// U+02228  encja >
-// U+022CE encja > lekko zakrzywiona

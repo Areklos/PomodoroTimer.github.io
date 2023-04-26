@@ -40,7 +40,7 @@ class Beam {
     this.render(activeDay);
   }
 
-  // Po kliknięciu w ToolTipie na usuń usuwamy daną fasolkę
+  // Po kliknięciu w ToolTipie na usuń usuwamy daną fasolkę (last - automatyczne usunięcie  ostatniej fasolki)
   removeBeam(idToRemove) {
     let activeDay;
     let selectedDay;
@@ -57,7 +57,6 @@ class Beam {
     }
 
     console.log("f_removeBeam  selectedDay", selectedDay);
-
     const dayBeforDelay = selectedDay.beams;
     console.log("f_removeBeam dayBeforDelay", dayBeforDelay);
     const newBeams = selectedDay.beams.filter((e) => e.id !== idToRemove); // zwracamy tablcie bez usuniętej fasolki
@@ -65,10 +64,10 @@ class Beam {
     newBeams.map((e, i) => (e.id = i + 1)); // numerujemy ID fasolek od nowa
     this.allBeams.filter((e) => e.day === activeDay)[0].beams = newBeams; // podmienimay stara tablice na nowa, juz bez usunietej fasolki i z nowymi ID
 
+    // gdy nie ma w danym dniu żadnych fasolek usuwamy cały dzień z tablicy
     const numBeamsInActiveDay = selectedDay.beams.length;
     if (!numBeamsInActiveDay) {
-      console.log("f_removeBeam usuwamy dzien ponieważ nie ma w nim żadnych fasolek");
-      this.allBeams.pop();
+      this.allBeams = this.allBeams.filter((e) => e.day !== activeDay);
     }
     console.log("f_removeBeam ostatecznie", this.allBeams);
 
@@ -76,14 +75,14 @@ class Beam {
     this.render(activeDay);
   }
 
-  //usuwamy wszystkie fasolki i renderujemy je wszystkie od nowa
+  // usuwamy wszystkie fasolki i renderujemy je wszystkie od nowa
   render(activeDay) {
     console.log("---f RENDER---");
     this.clearBeams();
     this.renderBeams(activeDay);
   }
 
-  // Usuwanie wszystkich fasolek
+  // usuwanie wszystkich fasolek
   clearBeams() {
     while (beamsDiv.firstChild) {
       beamsDiv.removeChild(beamsDiv.firstChild);

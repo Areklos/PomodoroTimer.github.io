@@ -195,7 +195,7 @@ span.actualSek {
 .iconPause {
   position: absolute;
   display: flex;
-  left: 70px;
+  left: 90px;
   top: 20px;
   /* transform: translate(-50%); */
   scale: 0;

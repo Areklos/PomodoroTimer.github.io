@@ -290,6 +290,12 @@ span.actualSek {
 }
 /***************************************************************/
 
+/* .splitRowAboveTimeLine {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  height: 40px;
+} */
+
 .aboveTimeLine {
   display: flex;
   gap: 10px;
@@ -326,6 +332,22 @@ span.actualSek {
   color: white;
   font-size: 1.2rem;
   font-weight: 500;
+}
+
+.addIconBeam {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #a83b0c; */
+  font-size: 1.4rem;
+}
+
+.addIconBeam:hover {
+  background-color: hsla(0, 0%, 100%, 0.219);
+  cursor: pointer;
 }
 
 .timeLine {

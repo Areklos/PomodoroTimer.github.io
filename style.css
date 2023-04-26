@@ -290,11 +290,10 @@ span.actualSek {
 }
 /***************************************************************/
 
-/* .splitRowAboveTimeLine {
+.splitRowAboveTimeLine {
   display: grid;
   grid-template-columns: 10% 80% 10%;
-  height: 40px;
-} */
+}
 
 .aboveTimeLine {
   display: flex;
@@ -335,6 +334,7 @@ span.actualSek {
 }
 
 .addIconBeam {
+  margin: auto;
   width: 35px;
   height: 35px;
   border-radius: 50%;

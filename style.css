@@ -341,12 +341,13 @@ span.actualSek {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #a83b0c; */
-  font-size: 1.4rem;
+  color: white;
+  font-size: 1.3rem;
 }
 
 .addIconBeam:hover {
-  background-color: hsla(0, 0%, 100%, 0.219);
+  /* background-color: hsla(0, 0%, 100%, 0.219); */
+  color: #c45c2f;
   cursor: pointer;
 }
 

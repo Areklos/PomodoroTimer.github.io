@@ -15,6 +15,7 @@ const barOutside = document.querySelector(".barOutside");
 const barInside = document.querySelector(".barInside");
 const barProgres = document.querySelector(".barProgres");
 const windowTime = document.querySelector(".windowTime");
+const openWindowAddBeam = document.querySelector(".openWindowAddBeamBtn");
 
 //lowerWindowTime
 const displayActiveDay = document.querySelector(".aboveTimeLine .timeLineToday");
@@ -23,6 +24,12 @@ const timeLine = document.querySelector(".timeLine");
 const beamsDiv = document.querySelector(".beams");
 const amountBeams = document.querySelector(".amountBeams");
 const sumTimeBeams = document.querySelector(".sumTimeBeams");
+
+//add beam window
+const windowAddBeam = document.querySelector(".windowAddBeam");
+const closeWindowAddBeam = document.querySelector(".btnCloseAddBeam");
+const akceptWindowAddBeam = document.querySelector(".btnAddBeam");
+const inputWindowAddBeam = document.querySelector(".windowAddBeam input");
 
 const pauseTimeBTN = document.createElement("button");
 pauseTimeBTN.textContent = "Pauza";
@@ -188,6 +195,24 @@ function minusOneMinute() {
     actualMin.textContent = m;
   }
 }
+
+// ###################################  Ręczne dodawanie fasolek   ###################################
+function openAddBeamWindow() {
+  windowAddBeam.classList.add("active2");
+}
+
+function closeAddBeamWindow() {
+  windowAddBeam.classList.remove("active2");
+}
+
+function addNewBeam() {
+  console.log("++++++++++++ newBeam");
+  const newBeamTime = inputWindowAddBeam.value;
+  inputWindowAddBeam.value = "";
+  console.log(newBeamTime);
+  // beam.addManuallyBeam(newBeamTime);
+}
+
 //#####################  Zmiana dni wyświetlania histori na TimeLine  ####################
 function setNextDayTimeLine() {
   console.log("\x1b[32m** klik jutro  **");
@@ -217,6 +242,9 @@ btnDailyStatic.addEventListener("click", changeSizeWindowTime);
 
 btnNextDay.addEventListener("click", setNextDayTimeLine);
 btnPreviousDay.addEventListener("click", setPreviousDayTimeLine);
+openWindowAddBeam.addEventListener("click", openAddBeamWindow);
+closeWindowAddBeam.addEventListener("click", closeAddBeamWindow);
+akceptWindowAddBeam.addEventListener("click", addNewBeam);
 
 //#####################  DODATKOWE ANIMACJE  ############################
 // animacja .ghost po nacisnieciu przycisku + lub -

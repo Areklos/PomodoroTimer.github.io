@@ -10,6 +10,7 @@
   --testBorder: 0; /* 1 - on, 0 - off */
   --durationWindowTime: 1s; /* Czas powiększania i zmniejszania okna WindowTime */
   --colorOrnage: #ff8552;
+  --colorOrangeDark: #c45c2f;
 }
 
 body {
@@ -161,7 +162,7 @@ span.actualSek {
 }
 
 .startTimeBTN:hover {
-  background-color: #c45c2f;
+  background-color: var(--colorOrangeDark);
 }
 
 .resetBTN {
@@ -333,7 +334,7 @@ span.actualSek {
   font-weight: 500;
 }
 
-.addIconBeam {
+.openWindowAddBeamBtn {
   margin: auto;
   width: 35px;
   height: 35px;
@@ -343,11 +344,14 @@ span.actualSek {
   align-items: center;
   color: white;
   font-size: 1.3rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .addIconBeam:hover {
   /* background-color: hsla(0, 0%, 100%, 0.219); */
-  color: #c45c2f;
+  color: var(--colorOrangeDark);
   cursor: pointer;
 }
 
@@ -629,7 +633,7 @@ span.ghost {
 
 @keyframes pulseBeam {
   0% {
-    background-color: #c45c2f;
+    background-color: var(--colorOrangeDark);
   }
   100% {
     background-color: #e2b29d;
@@ -671,4 +675,100 @@ span.ghost {
   background-color: #a83b0c;
   scale: 2;
   z-index: 1;
+}
+
+/***************  add beam Window *********************/
+
+.windowAddBeam {
+  position: relative;
+  display: flex;
+  transform: scale(0);
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  width: 250px;
+  height: 200px;
+  background-color: #69b578;
+  border-radius: 20px;
+  z-index: 10;
+}
+.windowAddBeam.active2 {
+  transform: scale(1);
+}
+
+.btnCloseAddBeam {
+  position: absolute;
+  right: 5%;
+  top: 3%;
+  background-color: transparent;
+  color: var(--colorOrnage);
+  border: none;
+  font-weight: 600;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+.btnCloseAddBeam:hover {
+  color: var(--colorOrangeDark);
+}
+
+.titleAddBeam {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.windowAddBeam input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  display: block;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+.windowAddBeam input:focus {
+  border: none;
+}
+.addBeamErrorMsg {
+  height: 20px;
+  color: rgb(158, 58, 58);
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.btnAddBeam {
+  display: block;
+  padding: 10px 15px;
+  width: 100px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--colorOrnage);
+  color: white;
+  font-weight: 700;
+}
+
+.btnAddBeam:hover {
+  background-color: var(--colorOrangeDark);
+}
+
+.overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
 }

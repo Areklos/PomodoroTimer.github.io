@@ -62,7 +62,7 @@
             <span class="timeLineToday">20-02-2023</span>
             <span class="setNexDay deactivate">Jutro</span>
           </div>
-          <div class="addIconBeam"><i class="fa-solid fa-plus"></i></div>
+          <button class="openWindowAddBeamBtn"><i class="fa-solid fa-plus"></i></button>
         </div>
 
         <div class="timeLine">
@@ -92,6 +92,15 @@
     <div class="btnDailyStatic downUp">
       <i class="fa-solid fa-angles-down"></i>
     </div>
+
+    <div class="windowAddBeam active2">
+      <button class="btnCloseAddBeam">&times;</button>
+      <div class="titleAddBeam">Dodaj blok</div>
+      <input class="newBeamValue" type="text" placeholder="hh:mm" />
+      <div class="addBeamErrorMsg">niepoprawna wartość</div>
+      <button data-close-btn class="btnAddBeam">Dodaj</button>
+    </div>
+    <div class="overlay"></div>
 
     <script src="newProto.js"></script>
     <script src="Beam.js"></script>

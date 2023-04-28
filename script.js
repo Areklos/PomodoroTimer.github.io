@@ -28,8 +28,9 @@ const sumTimeBeams = document.querySelector(".sumTimeBeams");
 //add beam window
 const windowAddBeam = document.querySelector(".windowAddBeam");
 const closeWindowAddBeam = document.querySelector(".btnCloseAddBeam");
-const akceptWindowAddBeam = document.querySelector(".btnAddBeam");
 const inputWindowAddBeam = document.querySelector(".windowAddBeam input");
+const addBeamErrorMsg = document.querySelector(".addBeamErrorMsg");
+const akceptWindowAddBeam = document.querySelector(".btnAddBeam");
 
 const pauseTimeBTN = document.createElement("button");
 pauseTimeBTN.textContent = "Pauza";
@@ -207,10 +208,79 @@ function closeAddBeamWindow() {
 
 function addNewBeam() {
   console.log("++++++++++++ newBeam");
-  const newBeamTime = inputWindowAddBeam.value;
-  inputWindowAddBeam.value = "";
+  const newBeamTime = inputWindowAddBeam.value.trim();
   console.log(newBeamTime);
-  // beam.addManuallyBeam(newBeamTime);
+  let errorHour = verificationInputNewBeam(newBeamTime);
+  console.log("🚀  errorHour:", errorHour);
+
+  if (!errorHour.flag) {
+    inputWindowAddBeam.value = "";
+    addBeamErrorMsg.textContent = "";
+    // beam.addManuallyBeam(newBeamTime);,
+  }
+}
+
+function verificationInputNewBeam(input) {
+  let flagError = 0;
+  let msg;
+
+  let errorHour = {
+    flag: 0,
+    msg: "",
+  };
+
+  // gdy mamy godzine 9:15 a potrzebujemy 09:15
+  if (input.length === 4 && input.slice(1, 2) == ":") {
+    input = "0" + input;
+  }
+
+  if (input.length > 5) {
+    errorHour.msg = "Za dużo znaków";
+    errorHour.flag = 1;
+  } else if (input.length < 5) {
+    errorHour.msg = "Za mało znaków";
+    errorHour.flag = 1;
+  }
+  if (input === "" || input == null) {
+    errorHour.msg = "Brak godziny";
+  }
+  if (input.length == 5) {
+    const h = parseInt(input.slice(0, 2));
+    console.log("🚀  h:", h);
+    const sign = input.slice(2, 3);
+    console.log("🚀  sign:", sign);
+    const m = parseInt(input.slice(3, 5));
+    console.log("🚀  m:", m);
+
+    if (h < 8 || h > 20) {
+      errorHour.flag = 1;
+      errorHour.msg = "Błędna godzina";
+    }
+    if (m < 0 || m > 60) {
+      errorHour.flag = 1;
+      errorHour.msg = "Błędne minuty";
+    }
+    if (sign !== ":") {
+      errorHour.flag = 1;
+      errorHour.msg = "Błędny  znak :";
+    }
+
+    if (/[a-zA-Z]/.test(input)) {
+      errorHour.msg = "Nie poprawne znaki";
+      errorHour.flag = 1;
+    }
+
+    // ostatni możliwy wpis to 20:00
+    if (h === 20 && m > 0) {
+      console.log("lala");
+      errorHour.flag = 1;
+      errorHour.msg = "Błędna godzina 20+";
+    }
+  }
+
+  addBeamErrorMsg.textContent = errorHour.msg;
+
+  return errorHour;
 }
 
 //#####################  Zmiana dni wyświetlania histori na TimeLine  ####################
